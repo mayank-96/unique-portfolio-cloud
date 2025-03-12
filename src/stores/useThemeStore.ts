@@ -1,5 +1,6 @@
 
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 type Theme = 'default' | 'purple' | 'ocean' | 'sunset';
 
@@ -8,7 +9,14 @@ interface ThemeStore {
   setTheme: (theme: Theme) => void;
 }
 
-export const useThemeStore = create<ThemeStore>((set) => ({
-  theme: 'default',
-  setTheme: (theme) => set({ theme }),
-}));
+export const useThemeStore = create<ThemeStore>()(
+  persist(
+    (set) => ({
+      theme: 'default',
+      setTheme: (theme) => set({ theme }),
+    }),
+    {
+      name: 'theme-storage',
+    }
+  )
+);
