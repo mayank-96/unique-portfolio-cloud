@@ -1,5 +1,5 @@
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
@@ -11,7 +11,22 @@ import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
 
 const Index = () => {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  
   useEffect(() => {
+    // Set initial mouse position to center of screen
+    setMousePosition({
+      x: window.innerWidth / 2,
+      y: window.innerHeight / 2
+    });
+    
+    // Track mouse movement
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+    
+    window.addEventListener('mousemove', handleMouseMove);
+    
     // Update document title
     document.title = "Mayank Pagar | Software Engineer";
     
@@ -38,6 +53,10 @@ const Index = () => {
         }
       });
     });
+    
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
   }, []);
   
   return (
@@ -46,8 +65,8 @@ const Index = () => {
       <motion.div
         className="fixed w-8 h-8 rounded-full bg-primary/10 z-[5] pointer-events-none hidden md:block"
         animate={{
-          x: (window.innerWidth / 2) - 16,
-          y: (window.innerHeight / 2) - 16,
+          x: mousePosition.x - 16,
+          y: mousePosition.y - 16,
           transition: { duration: 0.05, ease: "linear" }
         }}
         initial={{ opacity: 0 }}
