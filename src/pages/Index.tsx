@@ -8,7 +8,6 @@ import Achievements from "@/components/Achievements";
 import OpenSource from "@/components/OpenSource";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import ThreeBackground from "@/components/ThreeBackground";
 import { motion } from "framer-motion";
 
 const Index = () => {
@@ -73,9 +72,6 @@ const Index = () => {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 0.5 }}
       />
-      
-      {/* Three.js animated background */}
-      <ThreeBackground />
       
       <Header />
       <main>
