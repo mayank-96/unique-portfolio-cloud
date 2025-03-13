@@ -1,11 +1,23 @@
 
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useThemeStore } from '@/stores/useThemeStore';
 import * as THREE from 'three';
 
-// Floating particle that follows a noise pattern
-const FloatingParticle = ({ position, color, seed, speed = 1 }: { position: [number, number, number], color: string, seed: number, speed?: number }) => {
+// Improved floating particle with better aesthetics
+const FloatingParticle = ({ 
+  position, 
+  color, 
+  seed, 
+  speed = 1, 
+  size = 0.3 
+}: { 
+  position: [number, number, number], 
+  color: string, 
+  seed: number, 
+  speed?: number,
+  size?: number 
+}) => {
   const mesh = useRef<THREE.Mesh>(null!);
   const time = useRef(seed);
   
@@ -13,60 +25,80 @@ const FloatingParticle = ({ position, color, seed, speed = 1 }: { position: [num
     time.current += 0.01 * speed;
     
     if (mesh.current) {
-      mesh.current.position.x = position[0] + Math.sin(time.current) * 0.5;
-      mesh.current.position.y = position[1] + Math.cos(time.current * 0.7) * 0.5;
-      mesh.current.position.z = position[2] + Math.sin(time.current * 0.3) * 0.5;
+      // More fluid, natural motion pattern
+      mesh.current.position.x = position[0] + Math.sin(time.current) * 0.7;
+      mesh.current.position.y = position[1] + Math.cos(time.current * 0.7) * 0.7;
+      mesh.current.position.z = position[2] + Math.sin(time.current * 0.3) * 0.7;
       
-      mesh.current.rotation.x += 0.003 * speed;
-      mesh.current.rotation.y += 0.002 * speed;
+      // Gentle rotation
+      mesh.current.rotation.x += 0.002 * speed;
+      mesh.current.rotation.y += 0.001 * speed;
     }
   });
 
   return (
     <mesh ref={mesh} position={position}>
-      <octahedronGeometry args={[0.3, 0]} />
+      <sphereGeometry args={[size, 16, 16]} />
       <meshStandardMaterial 
         color={color} 
-        roughness={0.5} 
-        metalness={0.8}
+        roughness={0.3} 
+        metalness={0.7}
         emissive={color}
         emissiveIntensity={0.5}
         transparent
-        opacity={0.8}
+        opacity={0.7}
       />
     </mesh>
   );
 };
 
-// Particles container component
+// Particle field with better distribution and aesthetics
 const ParticleField = () => {
   const { theme } = useThemeStore();
   const { viewport } = useThree();
   
-  // Get color based on current theme
+  // Enhanced theme colors with better glow effect
   const getThemeColor = () => {
     switch (theme) {
-      case 'purple': return '#9b87f5';
-      case 'ocean': return '#0EA5E9';
-      case 'sunset': return '#F97316';
-      default: return '#FF5277';
+      case 'purple': return '#b0a1f7';
+      case 'ocean': return '#38bdf8';
+      case 'sunset': return '#fb923c';
+      default: return '#ff7291';
     }
   };
   
-  // Generate particles with positions spread throughout the scene
-  const particles = Array.from({ length: 15 }, (_, i) => ({
-    id: i,
-    position: [
-      (Math.random() - 0.5) * viewport.width * 1.5,
-      (Math.random() - 0.5) * viewport.height * 1.5,
-      (Math.random() - 3) * 5
-    ] as [number, number, number],
-    seed: Math.random() * 100,
-    speed: 0.5 + Math.random()
-  }));
+  // Create a more interesting particle arrangement
+  const particles = Array.from({ length: 20 }, (_, i) => {
+    const radius = 5 + Math.random() * 10;
+    const angle = (i / 20) * Math.PI * 2; // Distribute in a circle
+    const y = (Math.random() - 0.5) * viewport.height;
+    
+    return {
+      id: i,
+      position: [
+        Math.cos(angle) * radius,
+        y,
+        Math.sin(angle) * radius - 5
+      ] as [number, number, number],
+      seed: Math.random() * 100,
+      speed: 0.3 + Math.random() * 0.7,
+      size: 0.1 + Math.random() * 0.4
+    };
+  });
 
   return (
     <>
+      {/* Add a central glow */}
+      <mesh position={[0, 0, -10]}>
+        <sphereGeometry args={[4, 32, 32]} />
+        <meshBasicMaterial 
+          color={getThemeColor()}
+          transparent
+          opacity={0.05}
+        />
+      </mesh>
+      
+      {/* Render enhanced particles */}
       {particles.map((particle) => (
         <FloatingParticle 
           key={particle.id}
@@ -74,67 +106,61 @@ const ParticleField = () => {
           color={getThemeColor()}
           seed={particle.seed} 
           speed={particle.speed}
+          size={particle.size}
         />
       ))}
     </>
   );
 };
 
-// Scene adjustment based on mouse movement
-const MouseMovementEffect = ({ mouseSensitivity = 0.1 }) => {
+// Enhanced mouse movement effect with smoother response
+const MouseMovementEffect = ({ mouseSensitivity = 0.08 }) => {
   const { camera } = useThree();
   
-  useEffect(() => {
-    let targetRotationX = 0;
-    let targetRotationY = 0;
-    let currentRotationX = 0;
-    let currentRotationY = 0;
+  useFrame(() => {
+    // Get mouse position normalized to -1 to 1
+    const x = (window.innerWidth / 2 - (window.mouseX || window.innerWidth / 2)) / window.innerWidth;
+    const y = (window.innerHeight / 2 - (window.mouseY || window.innerHeight / 2)) / window.innerHeight;
     
-    const handleMouseMove = (e: MouseEvent) => {
-      // Normalize mouse position
-      const x = (e.clientX / window.innerWidth) * 2 - 1;
-      const y = (e.clientY / window.innerHeight) * 2 - 1;
-      
-      // Set target rotation based on mouse position
-      targetRotationX = y * mouseSensitivity;
-      targetRotationY = x * mouseSensitivity;
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    
-    // Animation loop to smoothly interpolate camera rotation
-    const animateCamera = () => {
-      // Smoothly interpolate current rotation towards target
-      currentRotationX += (targetRotationX - currentRotationX) * 0.05;
-      currentRotationY += (targetRotationY - currentRotationY) * 0.05;
-      
-      // Apply rotation to camera
-      if (camera) {
-        camera.rotation.x = currentRotationX;
-        camera.rotation.y = currentRotationY;
-      }
-      
-      requestAnimationFrame(animateCamera);
-    };
-    
-    const animationId = requestAnimationFrame(animateCamera);
-    
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      cancelAnimationFrame(animationId);
-    };
-  }, [camera, mouseSensitivity]);
+    // Apply subtle camera rotation based on mouse position
+    if (camera) {
+      camera.rotation.x = THREE.MathUtils.lerp(camera.rotation.x, y * mouseSensitivity, 0.05);
+      camera.rotation.y = THREE.MathUtils.lerp(camera.rotation.y, x * mouseSensitivity, 0.05);
+    }
+  });
   
   return null;
 };
 
+// Track mouse globally for smoother performance
+if (typeof window !== 'undefined') {
+  window.mouseX = window.innerWidth / 2;
+  window.mouseY = window.innerHeight / 2;
+  
+  window.addEventListener('mousemove', (e) => {
+    window.mouseX = e.clientX;
+    window.mouseY = e.clientY;
+  });
+}
+
 const ThreeBackground = () => {
   return (
-    <div className="fixed inset-0 -z-10 opacity-60">
-      <Canvas>
+    <div className="fixed inset-0 -z-10 opacity-70">
+      <Canvas 
+        dpr={[1, 2]} 
+        gl={{ 
+          antialias: true, 
+          alpha: true,
+          powerPreference: 'high-performance'
+        }}
+        camera={{ position: [0, 0, 10], fov: 50 }}
+      >
+        <color attach="background" args={['transparent']} />
+        <fog attach="fog" args={['#000', 10, 20]} />
         <ambientLight intensity={0.2} />
-        <directionalLight position={[10, 10, 10]} intensity={1} />
-        <MouseMovementEffect mouseSensitivity={0.1} />
+        <directionalLight position={[10, 10, 10]} intensity={0.5} />
+        <pointLight position={[0, 0, -5]} intensity={0.5} color="#ffffff" />
+        <MouseMovementEffect mouseSensitivity={0.05} />
         <ParticleField />
       </Canvas>
     </div>
