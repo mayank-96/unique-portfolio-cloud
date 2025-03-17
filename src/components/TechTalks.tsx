@@ -51,8 +51,13 @@ const TechTalks = () => {
               <div className="relative p-px overflow-hidden rounded-lg bg-gradient-to-br from-primary/30 via-primary/20 to-transparent h-full">
                 <div className="bg-background backdrop-blur-sm rounded-lg overflow-hidden h-full flex flex-col">
                   <div className="relative aspect-video bg-black/20 overflow-hidden">
+                    <img 
+                      src={talk.thumbnail} 
+                      alt={talk.title}
+                      className="w-full h-full object-cover transition-transform group-hover:scale-105 duration-500"
+                    />
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <Video size={48} className="text-white/50" />
+                      <Video size={48} className="text-white/80" />
                     </div>
                     <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-primary/20 group-hover:opacity-70 transition-opacity"></div>
                   </div>

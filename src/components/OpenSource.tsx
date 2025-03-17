@@ -64,30 +64,6 @@ const OpenSource = () => {
                 </div>
               </div>
               
-              <div className="code-section mt-6">
-                <div className="line-numbers">
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
-                    <div key={num}>{num}</div>
-                  ))}
-                </div>
-                <div className="code-content">
-                  <pre>
-                    <code>
-                      <span className="text-blue-400">const</span> <span className="text-yellow-400">ariaLiveToAccessibilityLiveRegion</span> = <span className="text-green-400">value</span> {'=>'} {'{'}
-                      {"\n"}  <span className="text-blue-400">switch</span>(<span className="text-green-400">value</span>) {'{'}
-                      {"\n"}    <span className="text-blue-400">case</span> <span className="text-orange-300">'assertive'</span>:
-                      {"\n"}      <span className="text-blue-400">return</span> <span className="text-orange-300">'assertive'</span>;
-                      {"\n"}    <span className="text-blue-400">case</span> <span className="text-orange-300">'polite'</span>:
-                      {"\n"}      <span className="text-blue-400">return</span> <span className="text-orange-300">'polite'</span>;
-                      {"\n"}    <span className="text-blue-400">case</span> <span className="text-orange-300">'off'</span>:
-                      {"\n"}      <span className="text-blue-400">return</span> <span className="text-orange-300">'none'</span>;
-                      {"\n"}  {'}'}
-                      {"\n"}{'}'}
-                    </code>
-                  </pre>
-                </div>
-              </div>
-              
               <div className="mt-8 flex flex-col sm:flex-row gap-4">
                 <a 
                   href="https://github.com/facebook/react-native/pull/34555" 
