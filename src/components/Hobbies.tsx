@@ -85,17 +85,29 @@ const Hobbies = () => {
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {[1, 2, 3].map((item) => (
+              {[
+                "https://photos.app.goo.gl/oDPVmddVPGpArH7d6",
+                "https://photos.app.goo.gl/StuCjXcAGGPhvJLe7",
+                "https://photos.app.goo.gl/bTWvhCPUaiJeNaPA8"
+              ].map((item, index) => (
                 <motion.div
-                  key={item}
+                  key={index}
                   className="relative p-px overflow-hidden rounded-lg bg-gradient-to-br from-primary/30 via-primary/20 to-transparent"
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: 0.2 + (item * 0.1) }}
+                  transition={{ duration: 0.4, delay: 0.2 + (index * 0.1) }}
                 >
-                  <div className="aspect-square bg-background/50 backdrop-blur-sm flex items-center justify-center rounded-lg">
-                    <Palette size={48} className="text-muted-foreground/50" />
+                  <div className="aspect-square bg-background/50 backdrop-blur-sm flex items-center justify-center rounded-lg overflow-hidden">
+                    <img 
+                      src={item} 
+                      alt={`Sketch ${index + 1}`} 
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = "https://via.placeholder.com/400x400?text=Sketch+Not+Found";
+                      }}
+                    />
                   </div>
                 </motion.div>
               ))}
