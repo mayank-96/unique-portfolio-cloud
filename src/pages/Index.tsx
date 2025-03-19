@@ -17,7 +17,7 @@ import Hobbies from "@/components/Hobbies";
 const Index = () => {
   useEffect(() => {
     // Update document title
-    document.title = "Mayank Pagar | Software Engineer";
+    document.title = "CtrlAltMayank.com | Your development keyboard shortcut";
     
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {

@@ -51,9 +51,10 @@ const Hero = () => {
       <div className="container mx-auto px-4 md:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-7 space-y-6">
-            <p className="font-mono text-sm uppercase tracking-wider text-primary animate-fade-in">
-              Hi there, I'm Mayank
-            </p>
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-4 font-mono text-sm uppercase tracking-wider animate-fade-in">
+              <span className="bg-primary/10 px-3 py-1 rounded-full text-primary">CtrlAltMayank.com</span>
+              <span className="text-muted-foreground">Your development keyboard shortcut</span>
+            </div>
             
             <div className="relative">
               <div className="absolute -top-10 -left-4 text-[180px] font-anton text-primary/10 animate-fade-in delay-300">
@@ -128,7 +129,10 @@ const Hero = () => {
                     ],
                   </div>
                   <div>
-                    <span className="text-orange-600">passion</span>: <span className="text-green-600">'Building elegant interfaces'</span>
+                    <span className="text-orange-600">website</span>: <span className="text-green-600">'ctrlaltmayank.com'</span>,
+                  </div>
+                  <div>
+                    <span className="text-orange-600">tagline</span>: <span className="text-green-600">'Your development keyboard shortcut'</span>
                   </div>
                 </div>
                 

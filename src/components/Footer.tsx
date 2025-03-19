@@ -8,10 +8,16 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="md:col-span-1">
             <div className="text-2xl font-mono font-bold text-foreground mb-4">
-              <span className="text-primary">M</span>ayank<span className="text-primary">.</span>
+              <span className="text-primary">Ctrl</span>
+              <span className="text-foreground">Alt</span>
+              <span className="text-primary">Mayank</span>
+              <span className="text-xs align-top text-foreground/70">.com</span>
             </div>
-            <p className="text-muted-foreground mb-4 max-w-md">
+            <p className="text-muted-foreground mb-2 max-w-md">
               Software engineer specializing in building exceptional digital experiences with a focus on responsive design and clean code.
+            </p>
+            <p className="text-primary/80 italic font-medium mb-4">
+              "Your development keyboard shortcut"
             </p>
           </div>
           
@@ -93,7 +99,7 @@ const Footer = () => {
         
         <div className="mt-12 pt-8 border-t border-border text-center text-muted-foreground">
           <p className="flex items-center justify-center gap-1">
-            © {new Date().getFullYear()} Mayank Pagar. Made with 
+            © {new Date().getFullYear()} CtrlAltMayank.com. Made with 
             <Heart size={16} className="text-primary" /> in Pune, India
           </p>
         </div>

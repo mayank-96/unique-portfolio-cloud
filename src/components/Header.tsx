@@ -40,8 +40,11 @@ const Header = () => {
     >
       <div className="container mx-auto px-4 md:px-8">
         <div className="flex justify-between items-center">
-          <a href="#" className="text-xl font-mono font-bold hover:text-primary transition-colors">
-            Mayank
+          <a href="#" className="text-xl font-mono font-bold hover:text-primary transition-colors flex items-center">
+            <span className="text-primary">Ctrl</span>
+            <span className="text-foreground">Alt</span>
+            <span className="text-primary">Mayank</span>
+            <span className="text-xs align-top text-foreground/70">.com</span>
           </a>
 
           {/* Desktop Navigation */}
@@ -109,7 +112,10 @@ const Header = () => {
         >
           <div className="container mx-auto px-4 py-5 flex justify-between items-center">
             <a href="#" className="text-xl font-mono font-bold">
-              Mayank
+              <span className="text-primary">Ctrl</span>
+              <span className="text-foreground">Alt</span>
+              <span className="text-primary">Mayank</span>
+              <span className="text-xs align-top text-foreground/70">.com</span>
             </a>
             <button onClick={toggleMenu} className="text-foreground p-1">
               <X size={24} />
@@ -162,7 +168,7 @@ const Header = () => {
                 ))}
               </div>
               <p className="text-center text-sm text-muted-foreground">
-                &copy; {new Date().getFullYear()} Mayank Pagar
+                &copy; {new Date().getFullYear()} CtrlAltMayank.com | All rights reserved
               </p>
             </div>
           </div>
