@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
@@ -41,33 +42,33 @@
   }
 
   .dark {
-    --background: 20 14% 4%;
-    --foreground: 60 9% 98%;
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
 
-    --card: 20 14% 4%;
-    --card-foreground: 60 9% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 20 14% 4%;
-    --popover-foreground: 60 9% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
 
     --primary: 160 84% 39%;
-    --primary-foreground: 60 9% 98%;
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 12 6% 15%;
-    --secondary-foreground: 60 9% 98%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 12 6% 15%;
-    --muted-foreground: 24 5% 65%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
 
-    --accent: 12 6% 15%;
-    --accent-foreground: 60 9% 98%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 62% 30%;
-    --destructive-foreground: 60 9% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 12 6% 15%;
-    --input: 12 6% 15%;
-    --ring: 160 84% 39%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
   }
 }
 

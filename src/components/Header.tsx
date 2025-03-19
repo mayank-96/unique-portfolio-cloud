@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { Github, Linkedin, Twitter, Mail, Menu, X, FileText, Terminal, Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useThemeStore } from "@/stores/useThemeStore";
-import ThemeToggle from "./ThemeToggle";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -17,6 +16,15 @@ const Header = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    // Update the document's class list based on dark mode state
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDarkMode]);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -86,9 +94,6 @@ const Header = () => {
                 {isDarkMode ? "Light" : "Dark"}
               </span>
             </button>
-            
-            {/* Theme Color Toggle */}
-            <ThemeToggle />
             
             {/* Resume Button */}
             <a 
@@ -198,11 +203,6 @@ const Header = () => {
             </nav>
             
             <div className="space-y-8">
-              {/* Theme Color Toggle */}
-              <div className="flex justify-center mb-4">
-                <ThemeToggle />
-              </div>
-              
               {/* Resume Button */}
               <div className="flex justify-center">
                 <a 
