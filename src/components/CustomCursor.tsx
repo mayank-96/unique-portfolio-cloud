@@ -23,6 +23,11 @@ const CustomCursor = () => {
     }
   };
   
+  // More subtle and elegant cursor
+  const cursorSize = linkHovered ? 24 : 18;
+  const dotSize = 6;
+  const primaryColor = getThemeColor();
+  
   useEffect(() => {
     const mouseMove = (e: MouseEvent) => {
       setPosition({
@@ -60,11 +65,14 @@ const CustomCursor = () => {
     };
   }, []);
 
-  // Hide default cursor
+  // Hide default cursor only on desktop
   useEffect(() => {
-    document.body.style.cursor = 'none';
+    // Only apply custom cursor on non-touch devices
+    if (window.matchMedia("(pointer: fine)").matches) {
+      document.body.style.cursor = 'none';
+    }
     
-    // Add exception for touch devices
+    // Handle touch devices
     const handleTouchStart = () => {
       document.body.style.cursor = 'auto';
     };
@@ -77,22 +85,48 @@ const CustomCursor = () => {
     };
   }, []);
 
-  const primaryColor = getThemeColor();
-  const cursorSize = linkHovered ? 30 : 20;
-  const cursorBorderWidth = clicked ? 5 : 2;
+  // Only render the custom cursor on non-touch devices
+  if (typeof window !== 'undefined' && !window.matchMedia("(pointer: fine)").matches) {
+    return null;
+  }
 
   return (
     <>
-      {/* Main cursor dot */}
+      {/* Main cursor dot - smaller and more subtle */}
       <motion.div
-        className="fixed top-0 left-0 w-5 h-5 rounded-full pointer-events-none z-50 mix-blend-difference"
+        className="fixed top-0 left-0 rounded-full pointer-events-none z-50"
         style={{
           backgroundColor: isDarkMode ? '#ffffff' : primaryColor,
-          boxShadow: `0 0 10px ${isDarkMode ? 'rgba(255, 255, 255, 0.5)' : primaryColor}`,
+          width: dotSize,
+          height: dotSize,
+          opacity: 0.9,
         }}
         animate={{
-          x: position.x - 10,
-          y: position.y - 10,
+          x: position.x - dotSize / 2,
+          y: position.y - dotSize / 2,
+          scale: clicked ? 1.5 : 1,
+        }}
+        transition={{
+          type: "spring",
+          damping: 25,
+          stiffness: 400,
+          mass: 0.3,
+        }}
+      />
+
+      {/* Secondary cursor ring - thinner and more elegant */}
+      <motion.div
+        className="fixed top-0 left-0 rounded-full border pointer-events-none z-40"
+        style={{
+          borderColor: isDarkMode ? 'rgba(255, 255, 255, 0.5)' : primaryColor,
+          width: cursorSize,
+          height: cursorSize,
+          borderWidth: 1,
+          opacity: 0.6,
+        }}
+        animate={{
+          x: position.x - cursorSize / 2,
+          y: position.y - cursorSize / 2,
           scale: clicked ? 0.8 : 1,
         }}
         transition={{
@@ -100,28 +134,6 @@ const CustomCursor = () => {
           damping: 20,
           stiffness: 300,
           mass: 0.5,
-        }}
-      />
-
-      {/* Secondary cursor ring */}
-      <motion.div
-        className="fixed top-0 left-0 rounded-full border pointer-events-none z-40 flex items-center justify-center"
-        style={{
-          borderColor: isDarkMode ? '#ffffff' : primaryColor,
-          width: cursorSize,
-          height: cursorSize,
-          borderWidth: cursorBorderWidth,
-        }}
-        animate={{
-          x: position.x - cursorSize / 2,
-          y: position.y - cursorSize / 2,
-          opacity: 0.8,
-        }}
-        transition={{
-          type: "spring",
-          damping: 15,
-          stiffness: 150,
-          mass: 0.8,
         }}
       />
     </>

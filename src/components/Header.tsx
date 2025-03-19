@@ -1,11 +1,14 @@
 
 import { useState, useEffect } from "react";
-import { Github, Linkedin, Twitter, Mail, Menu, X, FileText, Command, Terminal } from "lucide-react";
+import { Github, Linkedin, Twitter, Mail, Menu, X, FileText, Terminal, Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useThemeStore } from "@/stores/useThemeStore";
+import ThemeToggle from "./ThemeToggle";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isDarkMode, toggleDarkMode } = useThemeStore();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -68,6 +71,25 @@ const Header = () => {
           </nav>
 
           <div className="hidden md:flex items-center gap-6">
+            {/* Dark Mode Toggle - More visible and prominent */}
+            <button 
+              onClick={toggleDarkMode}
+              className="flex items-center gap-2 p-2 rounded-md border border-border hover:bg-muted transition-colors"
+              aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+            >
+              {isDarkMode ? (
+                <Sun size={18} className="text-yellow-400" />
+              ) : (
+                <Moon size={18} className="text-primary" />
+              )}
+              <span className="text-xs font-medium">
+                {isDarkMode ? "Light" : "Dark"}
+              </span>
+            </button>
+            
+            {/* Theme Color Toggle */}
+            <ThemeToggle />
+            
             {/* Resume Button */}
             <a 
               href="https://example.com/resume.pdf" 
@@ -97,7 +119,20 @@ const Header = () => {
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
+          <div className="md:hidden flex items-center gap-4">
+            {/* Dark Mode Toggle for Mobile */}
+            <button 
+              onClick={toggleDarkMode}
+              className="p-1.5 rounded-md"
+              aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+            >
+              {isDarkMode ? (
+                <Sun size={18} className="text-yellow-400" />
+              ) : (
+                <Moon size={18} className="text-primary" />
+              )}
+            </button>
+            
             <button 
               className="text-foreground p-1"
               onClick={toggleMenu}
@@ -125,9 +160,24 @@ const Header = () => {
                 <span className="text-primary">Mayank</span>
               </div>
             </a>
-            <button onClick={toggleMenu} className="text-foreground p-1">
-              <X size={24} />
-            </button>
+            <div className="flex items-center gap-4">
+              {/* Dark Mode Toggle in Mobile Menu */}
+              <button 
+                onClick={toggleDarkMode}
+                className="p-1.5 rounded-md"
+                aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+              >
+                {isDarkMode ? (
+                  <Sun size={18} className="text-yellow-400" />
+                ) : (
+                  <Moon size={18} className="text-primary" />
+                )}
+              </button>
+              
+              <button onClick={toggleMenu} className="text-foreground p-1">
+                <X size={24} />
+              </button>
+            </div>
           </div>
           
           <div className="flex-1 flex flex-col justify-center px-4">
@@ -148,6 +198,11 @@ const Header = () => {
             </nav>
             
             <div className="space-y-8">
+              {/* Theme Color Toggle */}
+              <div className="flex justify-center mb-4">
+                <ThemeToggle />
+              </div>
+              
               {/* Resume Button */}
               <div className="flex justify-center">
                 <a 
