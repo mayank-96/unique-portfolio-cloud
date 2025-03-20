@@ -1,8 +1,8 @@
-
 import { useState, useEffect } from "react";
 import { Github, Linkedin, Twitter, Mail, Menu, X, FileText, Terminal, Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useThemeStore } from "@/stores/useThemeStore";
+import ThemeColorButton from "./ThemeColorButton";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -79,21 +79,27 @@ const Header = () => {
           </nav>
 
           <div className="hidden md:flex items-center gap-6">
-            {/* Dark Mode Toggle - More visible and prominent */}
-            <button 
-              onClick={toggleDarkMode}
-              className="flex items-center gap-2 p-2 rounded-md border border-border hover:bg-muted transition-colors"
-              aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
-            >
-              {isDarkMode ? (
-                <Sun size={18} className="text-yellow-400" />
-              ) : (
-                <Moon size={18} className="text-primary" />
-              )}
-              <span className="text-xs font-medium">
-                {isDarkMode ? "Light" : "Dark"}
-              </span>
-            </button>
+            {/* Theme Controls - Dark Mode Toggle + Color Picker */}
+            <div className="flex items-center gap-2">
+              {/* Dark Mode Toggle */}
+              <button 
+                onClick={toggleDarkMode}
+                className="p-2 rounded-md border border-border hover:bg-muted transition-colors flex items-center gap-2"
+                aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+              >
+                {isDarkMode ? (
+                  <Sun size={18} className="text-yellow-400" />
+                ) : (
+                  <Moon size={18} className="text-primary" />
+                )}
+                <span className="text-xs font-medium">
+                  {isDarkMode ? "Light" : "Dark"}
+                </span>
+              </button>
+              
+              {/* Theme Color Button */}
+              <ThemeColorButton />
+            </div>
             
             {/* Resume Button */}
             <a 
@@ -125,18 +131,24 @@ const Header = () => {
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center gap-4">
-            {/* Dark Mode Toggle for Mobile */}
-            <button 
-              onClick={toggleDarkMode}
-              className="p-1.5 rounded-md"
-              aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
-            >
-              {isDarkMode ? (
-                <Sun size={18} className="text-yellow-400" />
-              ) : (
-                <Moon size={18} className="text-primary" />
-              )}
-            </button>
+            {/* Mobile Theme Controls */}
+            <div className="flex items-center gap-2">
+              {/* Dark Mode Toggle for Mobile */}
+              <button 
+                onClick={toggleDarkMode}
+                className="p-1.5 rounded-md"
+                aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+              >
+                {isDarkMode ? (
+                  <Sun size={18} className="text-yellow-400" />
+                ) : (
+                  <Moon size={18} className="text-primary" />
+                )}
+              </button>
+              
+              {/* Mobile Theme Color Button */}
+              <ThemeColorButton />
+            </div>
             
             <button 
               className="text-foreground p-1"
@@ -166,18 +178,24 @@ const Header = () => {
               </div>
             </a>
             <div className="flex items-center gap-4">
-              {/* Dark Mode Toggle in Mobile Menu */}
-              <button 
-                onClick={toggleDarkMode}
-                className="p-1.5 rounded-md"
-                aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
-              >
-                {isDarkMode ? (
-                  <Sun size={18} className="text-yellow-400" />
-                ) : (
-                  <Moon size={18} className="text-primary" />
-                )}
-              </button>
+              {/* Theme Controls in Mobile Menu */}
+              <div className="flex items-center gap-2">
+                {/* Dark Mode Toggle in Mobile Menu */}
+                <button 
+                  onClick={toggleDarkMode}
+                  className="p-1.5 rounded-md"
+                  aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+                >
+                  {isDarkMode ? (
+                    <Sun size={18} className="text-yellow-400" />
+                  ) : (
+                    <Moon size={18} className="text-primary" />
+                  )}
+                </button>
+                
+                {/* Mobile Theme Color Button */}
+                <ThemeColorButton />
+              </div>
               
               <button onClick={toggleMenu} className="text-foreground p-1">
                 <X size={24} />
