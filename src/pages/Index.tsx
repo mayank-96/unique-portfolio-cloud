@@ -1,3 +1,4 @@
+
 import { useEffect } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
@@ -21,13 +22,6 @@ const Index = () => {
     // Update document title
     document.title = "Ctrl+Alt+Mayank | Your development keyboard shortcut";
     
-    // Apply dark mode to document
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-    
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
@@ -44,10 +38,10 @@ const Index = () => {
         }
       });
     });
-  }, [isDarkMode]);
+  }, []);
   
   return (
-    <div className="bg-background relative">
+    <div className={`bg-background relative ${isDarkMode ? 'dark' : ''}`}>
       <Header />
       <main>
         <Hero />
