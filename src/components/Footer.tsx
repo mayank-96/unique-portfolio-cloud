@@ -1,4 +1,3 @@
-
 import { Heart, Terminal } from "lucide-react";
 
 const Footer = () => {
@@ -12,9 +11,7 @@ const Footer = () => {
                 <Terminal size={20} className="text-primary" />
               </div>
               <div className="text-2xl font-mono font-bold text-foreground">
-                <span className="text-primary">Ctrl</span>
-                <span className="text-foreground">+Alt+</span>
-                <span className="text-primary">Mayank</span>
+                <span className="text-foreground">Mayank</span>
               </div>
             </div>
             <p className="text-muted-foreground mb-2 max-w-md">
@@ -104,7 +101,7 @@ const Footer = () => {
         
         <div className="mt-12 pt-8 border-t border-border text-center text-muted-foreground">
           <p className="flex items-center justify-center gap-1">
-            © {new Date().getFullYear()} Ctrl+Alt+Mayank. Made with 
+            © {new Date().getFullYear()} Mayank. Made with 
             <Heart size={16} className="text-primary" /> in Nashik, India
           </p>
         </div>

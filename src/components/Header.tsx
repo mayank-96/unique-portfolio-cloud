@@ -17,7 +17,6 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    // Update the document's class list based on dark mode state
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
     } else {
@@ -55,13 +54,10 @@ const Header = () => {
               <Terminal size={18} className="text-primary" />
             </div>
             <div className="flex items-baseline">
-              <span className="text-primary">Ctrl</span>
-              <span className="text-foreground">+Alt+</span>
-              <span className="text-primary">Mayank</span>
+              <span className="text-foreground">Mayank</span>
             </div>
           </a>
 
-          {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
             <ul className="flex gap-8">
               {navLinks.map((link, index) => (
@@ -78,7 +74,6 @@ const Header = () => {
           </nav>
 
           <div className="hidden md:flex items-center gap-6">
-            {/* Dark Mode Toggle - More visible and prominent */}
             <button 
               onClick={toggleDarkMode}
               className="flex items-center gap-2 p-2 rounded-md border border-border hover:bg-muted transition-colors"
@@ -94,7 +89,6 @@ const Header = () => {
               </span>
             </button>
             
-            {/* Resume Button */}
             <a 
               href="/mayank-pagar-resume.pdf" 
               target="_blank"
@@ -105,7 +99,6 @@ const Header = () => {
               <span className="font-medium">Resume</span>
             </a>
             
-            {/* Social Links */}
             <div className="flex gap-4">
               {socials.map((social, index) => (
                 <a 
@@ -122,9 +115,7 @@ const Header = () => {
             </div>
           </div>
 
-          {/* Mobile menu button */}
           <div className="md:hidden flex items-center gap-4">
-            {/* Dark Mode Toggle for Mobile */}
             <button 
               onClick={toggleDarkMode}
               className="p-1.5 rounded-md"
@@ -148,7 +139,6 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Mobile Navigation Overlay */}
       {isMenuOpen && (
         <div 
           className="fixed inset-0 bg-background z-40 md:hidden flex flex-col"
@@ -159,13 +149,10 @@ const Header = () => {
                 <Terminal size={18} />
               </div>
               <div className="flex items-baseline">
-                <span className="text-primary">Ctrl</span>
-                <span className="text-foreground">+Alt+</span>
-                <span className="text-primary">Mayank</span>
+                <span className="text-foreground">Mayank</span>
               </div>
             </a>
             <div className="flex items-center gap-4">
-              {/* Dark Mode Toggle in Mobile Menu */}
               <button 
                 onClick={toggleDarkMode}
                 className="p-1.5 rounded-md"
@@ -202,7 +189,6 @@ const Header = () => {
             </nav>
             
             <div className="space-y-8">
-              {/* Resume Button */}
               <div className="flex justify-center">
                 <a 
                   href="/mayank-pagar-resume.pdf" 
