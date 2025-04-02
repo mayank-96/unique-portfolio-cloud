@@ -3,6 +3,7 @@ import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Briefcase, Calendar, Clock } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Switch } from "@/components/ui/switch";
 
 // Function to calculate experience duration
 const calculateDuration = (startDate: string, endDate: string = "Present") => {
@@ -42,6 +43,7 @@ const experiences = [
     startDate: "12/2023",
     endDate: "Present",
     location: "Remote (India)",
+    isInternship: false,
     responsibilities: [
       "Solely developed and launched a collaborative File Drive (Lottie, PDF, image, video) with custom media players, driving a 10% revenue increase.",
       "Refactored legacy onboarding code for Superflow, reducing bugs by 99% through improved logic.",
@@ -59,6 +61,7 @@ const experiences = [
     startDate: "07/2023",
     endDate: "12/2023",
     location: "Bangalore, India",
+    isInternship: false,
     responsibilities: [
       "Developed an internal Figma plugin that auto-generates a design system from Storybook, supporting complex features like auto layout, reducing designer effort by 99%. The resulting auto-generated Figma file achieved 114 likes and 6.2k users.",
       "Developed the GlueStack Figma plugin, enabling batch updates for color palette alpha tokens and font families, streamlining design consistency and workflow, and achieving 28 likes and 1.3k users."
@@ -72,6 +75,7 @@ const experiences = [
     startDate: "07/2022",
     endDate: "07/2023",
     location: "Bangalore, India",
+    isInternship: false,
     responsibilities: [
       "Co-created a performant Universal component library GlueStack for React and React Native environments, achieving 3.5k GitHub stars and 14k monthly npm users.",
       "Led a project by handling setup, fixing bugs, reviewing code, and improving code structure with a small team.",
@@ -86,6 +90,7 @@ const experiences = [
     startDate: "11/2021",
     endDate: "07/2022",
     location: "Banglore, India",
+    isInternship: true,
     responsibilities: [
       "Worked on NativeBase core, a widely adopted UI library with over 65 K+ weekly downloads and 18K+ Github stars.",
       "Actively maintained and improved the library by resolving Github issues and enhancing its functionality for exceptional user experience."
@@ -99,6 +104,7 @@ const experiences = [
     startDate: "07/2021",
     endDate: "11/2021",
     location: "(Remote) Murcia, Spain",
+    isInternship: true,
     responsibilities: [
       "Developed a website for the MOOC platform using MERN stack.",
       "Worked on advanced features such as authentication, course filtering, and Admin Dashboard."
@@ -112,6 +118,7 @@ const experiences = [
     startDate: "04/2021",
     endDate: "05/2021",
     location: "(Remote) Mumbai, India",
+    isInternship: true,
     responsibilities: [
       "Automated data collection by scheduling scripts.",
       "Created a website using WordPress. Worked on Flutter app by adding some UI elements and a feature for scheduling meetings."
@@ -125,6 +132,7 @@ const experiences = [
     startDate: "03/2021",
     endDate: "05/2021",
     location: "(Remote) Mumbai, India",
+    isInternship: true,
     responsibilities: [
       "Developed retrieval-based Chatbot API using Bi-LSTM model to classify which category the user's message belongs to and then give a random response from the list of responses.",
       "Added extra functionality by creating and integrating Sentiment Classification API to calculate user satisfaction score.",
@@ -135,11 +143,17 @@ const experiences = [
 
 const Experience = () => {
   const [activeTab, setActiveTab] = useState(experiences[0].id);
+  const [includeInternships, setIncludeInternships] = useState(true);
 
   // Calculate total experience
   const totalExperience = useMemo(() => {
+    // Filter experiences based on internship toggle
+    const filteredExperiences = includeInternships 
+      ? experiences 
+      : experiences.filter(exp => !exp.isInternship);
+    
     // Find earliest start date
-    const earliestStart = experiences.reduce((earliest, exp) => {
+    const earliestStart = filteredExperiences.reduce((earliest, exp) => {
       const currentStartDate = exp.startDate.split('/');
       const currentStartMonth = parseInt(currentStartDate[0]);
       const currentStartYear = parseInt(currentStartDate[1]);
@@ -152,13 +166,13 @@ const Experience = () => {
       }
       
       return earliest;
-    }, null);
+    }, null as { month: number; year: number } | null);
     
     if (!earliestStart) return "N/A";
     
     const startDateString = `${earliestStart.month}/${earliestStart.year}`;
     return calculateDuration(startDateString);
-  }, []);
+  }, [includeInternships]);
 
   // Calculate individual experience durations
   const experiencesWithDuration = useMemo(() => {
@@ -187,9 +201,25 @@ const Experience = () => {
             My journey as a software engineer, working with innovative teams and technologies.
           </p>
           
-          <div className="mt-6 inline-flex items-center justify-center px-4 py-2 bg-primary/10 rounded-full text-primary font-medium">
-            <Clock size={18} className="mr-2" />
-            <span>Total Experience: {totalExperience}</span>
+          <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="inline-flex items-center justify-center px-4 py-2 bg-primary/10 rounded-full text-primary font-medium">
+              <Clock size={18} className="mr-2" />
+              <span>Total Experience: {totalExperience}</span>
+            </div>
+            
+            <div className="flex items-center space-x-2">
+              <Switch 
+                id="include-internships" 
+                checked={includeInternships} 
+                onCheckedChange={setIncludeInternships}
+              />
+              <label 
+                htmlFor="include-internships" 
+                className="text-sm font-medium cursor-pointer"
+              >
+                Include Internships
+              </label>
+            </div>
           </div>
         </motion.div>
         
