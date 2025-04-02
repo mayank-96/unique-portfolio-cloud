@@ -1,4 +1,3 @@
-
 import { Code } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
@@ -30,7 +29,6 @@ const Hero = () => {
 
   return (
     <section id="hero" className="relative pt-32 pb-16 md:py-32 overflow-hidden">
-      {/* Northern Lights Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div 
           ref={northernLightsRef}
@@ -52,8 +50,8 @@ const Hero = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-7 space-y-6">
             <div className="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-4 font-mono text-sm uppercase tracking-wider animate-fade-in">
-              <span className="bg-primary/10 px-3 py-1 rounded-full text-primary">CtrlAltMayank.com</span>
-              <span className="text-muted-foreground">Your development keyboard shortcut</span>
+              <span className="bg-primary/10 px-3 py-1 rounded-full text-primary">Portfolio</span>
+              <span className="text-muted-foreground">Software Engineer</span>
             </div>
             
             <div className="relative">
