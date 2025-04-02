@@ -82,7 +82,7 @@ const Footer = () => {
                 </svg>
               </a>
               <a 
-                href="https://twitter.com/mayankp09_" 
+                href="https://x.com/mayankp09_" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-background border border-border rounded-full flex items-center justify-center hover:bg-secondary transition-colors"
@@ -97,6 +97,7 @@ const Footer = () => {
             <div className="text-muted-foreground">
               <p>pagarmayank07@gmail.com</p>
               <p>+91 7620415699</p>
+              <p>Nashik, India</p>
             </div>
           </div>
         </div>
@@ -104,7 +105,7 @@ const Footer = () => {
         <div className="mt-12 pt-8 border-t border-border text-center text-muted-foreground">
           <p className="flex items-center justify-center gap-1">
             © {new Date().getFullYear()} Ctrl+Alt+Mayank. Made with 
-            <Heart size={16} className="text-primary" /> in Pune, India
+            <Heart size={16} className="text-primary" /> in Nashik, India
           </p>
         </div>
       </div>

@@ -5,63 +5,76 @@ import { motion } from "framer-motion";
 const Projects = () => {
   const categories = [
     {
-      name: "Web Development",
+      name: "Professional Work",
+      projects: [
+        {
+          title: "Velt Collaboration SDK",
+          description: "Framework-agnostic collaboration SDK with customizable components and theming system",
+          tech: ["React", "TypeScript", "Design Systems", "Accessibility"],
+          icon: Library,
+          color: "bg-blue-600",
+          link: "https://velt.dev/",
+        },
+        {
+          title: "Superflow File Drive",
+          description: "Collaborative file manager with custom media players for various file types",
+          tech: ["React", "Media Players", "Collaboration"],
+          icon: Chrome,
+          color: "bg-purple-600",
+          link: "https://drive.usesuperflow.com/upload",
+        },
+        {
+          title: "GlueStack Components",
+          description: "Universal component library for React and React Native with 3.5k GitHub stars",
+          tech: ["React", "React Native", "Component Library"],
+          icon: Code,
+          color: "bg-green-600",
+          link: "https://gluestack.io/",
+        },
+        {
+          title: "NativeBase",
+          description: "UI library with 65k+ weekly downloads and 18k+ GitHub stars",
+          tech: ["React Native", "Component Library", "UI Design"],
+          icon: Code,
+          color: "bg-indigo-600",
+          link: "https://nativebase.io/",
+        }
+      ]
+    },
+    {
+      name: "Tools & Plugins",
+      projects: [
+        {
+          title: "GlueStack Figma Plugin",
+          description: "Plugin enabling batch updates for color palette alpha tokens and font families",
+          tech: ["Figma Plugin", "Design", "JavaScript"],
+          icon: Chrome,
+          color: "bg-pink-500",
+          link: "https://www.figma.com/community/plugin/1304000704678516266/gluestack",
+        },
+        {
+          title: "React Native Core",
+          description: "Added aria-live alias for accessibilityLiveRegion, improved accessibility",
+          tech: ["React Native", "Accessibility", "JavaScript"],
+          icon: Code,
+          color: "bg-blue-500",
+          link: "https://github.com/facebook/react-native/pull/34555",
+        }
+      ]
+    },
+    {
+      name: "Personal Projects",
       projects: [
         {
           title: "ChessMate",
-          description: "Chess practice app with Stockfish engine integration for move calculation and interactive board display.",
+          description: "Chess practice app with Stockfish engine integration, won 2nd position in hackathon",
           tech: ["Flask", "Stockfish", "chessboard.js", "Python"],
           icon: Chrome,
           color: "bg-blue-500"
         },
         {
-          title: "Mariela Cushions",
-          description: "Full-stack e-commerce platform with dynamic frontend and MongoDB backend.",
-          tech: ["HTML", "CSS", "JavaScript", "Express.js", "MongoDB"],
-          icon: Chrome,
-          color: "bg-pink-500"
-        },
-        {
-          title: "Wave Music Player",
-          description: "Responsive music player with core playback functionalities.",
-          tech: ["React.js", "Sass"],
-          icon: Chrome,
-          color: "bg-purple-500"
-        }
-      ]
-    },
-    {
-      name: "Mobile Development",
-      projects: [
-        {
-          title: "Tudul App",
-          description: "Todo-list app using Flutter with SQLite for local storage and CRUD operations.",
-          tech: ["Flutter", "SQLite", "Dart"],
-          icon: Code,
-          color: "bg-green-500"
-        },
-        {
-          title: "Food Delivery UI",
-          description: "Visually appealing food delivery application interface built with Flutter.",
-          tech: ["Flutter", "UI/UX", "Dart"],
-          icon: Code,
-          color: "bg-orange-500"
-        }
-      ]
-    },
-    {
-      name: "Data Science & ML",
-      projects: [
-        {
-          title: "Music Genre Classification",
-          description: "Deep learning model for audio genre prediction with 93% test accuracy.",
-          tech: ["Python", "Deep Learning", "EDA"],
-          icon: Database,
-          color: "bg-indigo-500"
-        },
-        {
           title: "Titanic Survival Predictor",
-          description: "ML model predicting survival odds on the Titanic.",
+          description: "ML model predicting survival odds on the Titanic, winner of web development contest",
           tech: ["Python", "Machine Learning", "Statistical Analysis"],
           icon: Database,
           color: "bg-red-500"
@@ -83,8 +96,7 @@ const Projects = () => {
               Works
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl">
-              A selection of my personal and professional projects across various domains. 
-              Each project represents a unique challenge I've tackled.
+              A selection of my professional work, open-source contributions, and personal projects across various domains.
             </p>
           </div>
           
@@ -122,6 +134,17 @@ const Projects = () => {
                               </div>
                               <h4 className="text-xl font-bold">{project.title}</h4>
                             </div>
+                            {project.link && (
+                              <a 
+                                href={project.link} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="text-muted-foreground hover:text-primary transition-colors"
+                                aria-label={`Visit ${project.title} website`}
+                              >
+                                <ExternalLink size={18} />
+                              </a>
+                            )}
                           </div>
                           
                           <p className="text-muted-foreground mb-6 flex-grow">

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Github, Linkedin, Twitter, Mail, Menu, X, FileText, Terminal, Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -38,7 +37,7 @@ const Header = () => {
   const socials = [
     { icon: Github, href: "https://github.com/mayank-96", label: "GitHub" },
     { icon: Linkedin, href: "https://linkedin.com/in/mayank-pagar", label: "LinkedIn" },
-    { icon: Twitter, href: "https://twitter.com/mayankp09_", label: "Twitter" },
+    { icon: Twitter, href: "https://x.com/mayankp09_", label: "Twitter" },
     { icon: Mail, href: "mailto:pagarmayank07@gmail.com", label: "Email" }
   ];
 
@@ -97,7 +96,7 @@ const Header = () => {
             
             {/* Resume Button */}
             <a 
-              href="https://example.com/resume.pdf" 
+              href="/mayank-pagar-resume.pdf" 
               target="_blank"
               rel="noopener noreferrer"
               className="px-4 py-2 bg-primary/10 text-primary border border-primary/30 rounded-full flex items-center gap-2 hover:bg-primary/20 transition-colors"
@@ -206,7 +205,7 @@ const Header = () => {
               {/* Resume Button */}
               <div className="flex justify-center">
                 <a 
-                  href="https://example.com/resume.pdf" 
+                  href="/mayank-pagar-resume.pdf" 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-6 py-3 bg-primary/10 text-primary border border-primary/30 rounded-full flex items-center gap-2 hover:bg-primary/20 transition-colors"
