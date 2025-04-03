@@ -45,10 +45,10 @@ const experiences = [
     location: "Remote (India)",
     isInternship: false,
     responsibilities: [
-      "Solely developed and launched a collaborative File Drive (Lottie, PDF, image, video) with custom media players, driving a 10% revenue increase.",
-      "Refactored legacy onboarding code for Superflow, reducing bugs by 99% through improved logic.",
-      "Introduced a \"wireframes\" architecture, providing users with fully Customizable Components within a framework-agnostic collaboration SDK, and driving a 6x revenue growth.",
-      "Developed a comprehensive Theming system, reducing user implementation time by 80% through customizable colors, spacing, and fonts.",
+      <>Solely developed and launched a collaborative <a href="https://drive.usesuperflow.com/upload" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">File Drive</a> (Lottie, PDF, image, video) with custom media players, driving a 10% revenue increase.</>,
+      <>Refactored legacy onboarding code for <a href="https://velt.dev/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Superflow</a>, reducing bugs by 99% through improved logic.</>,
+      <>Introduced a "wireframes" architecture, providing users with fully <a href="https://velt.dev/components" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Customizable Components</a> within a framework-agnostic collaboration SDK, and driving a 6x revenue growth.</>,
+      <>Developed a comprehensive <a href="https://velt.dev/theming" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Theming system</a>, reducing user implementation time by 80% through customizable colors, spacing, and fonts.</>,
       "Enhanced SDK accessibility and globalization via ARIA, test IDs, and internalization.",
       "Implemented in-product Video Trimming Editor."
     ]
@@ -63,8 +63,8 @@ const experiences = [
     location: "Bangalore, India",
     isInternship: false,
     responsibilities: [
-      "Developed an internal Figma plugin that auto-generates a design system from Storybook, supporting complex features like auto layout, reducing designer effort by 99%. The resulting auto-generated Figma file achieved 114 likes and 6.2k users.",
-      "Developed the GlueStack Figma plugin, enabling batch updates for color palette alpha tokens and font families, streamlining design consistency and workflow, and achieving 28 likes and 1.3k users."
+      <>Developed an internal Figma plugin that auto-generates a design system from Storybook, supporting complex features like auto layout, reducing designer effort by 99%. The resulting auto-generated Figma file achieved 114 likes and 6.2k users.</>,
+      <>Developed the <a href="https://www.figma.com/community/plugin/1304000704678516266/gluestack" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">GlueStack Figma plugin</a>, enabling batch updates for color palette alpha tokens and font families, streamlining design consistency and workflow, and achieving 28 likes and 1.3k users.</>
     ]
   },
   {
@@ -77,7 +77,7 @@ const experiences = [
     location: "Bangalore, India",
     isInternship: false,
     responsibilities: [
-      "Co-created a performant Universal component library GlueStack for React and React Native environments, achieving 3.5k GitHub stars and 14k monthly npm users.",
+      <>Co-created a performant Universal component library <a href="https://gluestack.io/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">GlueStack</a> for React and React Native environments, achieving 3.5k GitHub stars and 14k monthly npm users.</>,
       "Led a project by handling setup, fixing bugs, reviewing code, and improving code structure with a small team.",
       "Developed a Plugin System for a framework which generates different targets from a single storybook."
     ]
@@ -92,7 +92,7 @@ const experiences = [
     location: "Banglore, India",
     isInternship: true,
     responsibilities: [
-      "Worked on NativeBase core, a widely adopted UI library with over 65 K+ weekly downloads and 18K+ Github stars.",
+      <>Worked on <a href="https://nativebase.io/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">NativeBase</a> core, a widely adopted UI library with over 65 K+ weekly downloads and 18K+ Github stars.</>,
       "Actively maintained and improved the library by resolving Github issues and enhancing its functionality for exceptional user experience."
     ]
   },
@@ -134,9 +134,9 @@ const experiences = [
     location: "(Remote) Mumbai, India",
     isInternship: true,
     responsibilities: [
-      "Developed retrieval-based Chatbot API using Bi-LSTM model to classify which category the user's message belongs to and then give a random response from the list of responses.",
-      "Added extra functionality by creating and integrating Sentiment Classification API to calculate user satisfaction score.",
-      "Built Ingredient Recommendation API using KNN by collecting recipe data through web scraping."
+      <>Developed retrieval-based <a href="https://github.com/mayank-96/chatbot-flask-api" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Chatbot API</a> using Bi-LSTM model to classify which category the user's message belongs to and then give a random response from the list of responses.</>,
+      <>Added extra functionality by creating and integrating <a href="https://github.com/mayank-96/sentiment-analysis-api" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Sentiment Classification API</a> to calculate user satisfaction score.</>,
+      <>Built <a href="https://github.com/mayank-96/recipe-recommendation-api" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Ingredient Recommendation API</a> using KNN by collecting recipe data through web scraping.</>
     ]
   }
 ];
