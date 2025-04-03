@@ -1,6 +1,6 @@
-
 import { ExternalLink, Github, Chrome, Code, Database, Library } from "lucide-react";
 import { motion } from "framer-motion";
+import { Card, CardContent } from "@/components/ui/card";
 
 const Projects = () => {
   const categories = [
@@ -83,6 +83,58 @@ const Projects = () => {
     }
   ];
 
+  const renderRegularProject = (project, projectIndex) => (
+    <motion.div
+      key={project.title}
+      className="group"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: projectIndex * 0.1 }}
+    >
+      <div className="relative p-px overflow-hidden rounded-lg bg-gradient-to-br from-primary/30 via-primary/20 to-transparent">
+        <div className="bg-background p-6 h-full flex flex-col rounded-lg backdrop-blur-sm">
+          <div className="mb-4 flex items-start justify-between">
+            <div className="flex items-center gap-3">
+              <div className={`w-10 h-10 ${project.color} rounded-full flex items-center justify-center`}>
+                <project.icon size={20} className="text-white" />
+              </div>
+              <h4 className="text-xl font-bold">{project.title}</h4>
+            </div>
+            {project.link && (
+              <a 
+                href={project.link} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary transition-colors"
+                aria-label={`Visit ${project.title} website`}
+              >
+                <ExternalLink size={18} />
+              </a>
+            )}
+          </div>
+          
+          <p className="text-muted-foreground mb-6 flex-grow">
+            {project.description}
+          </p>
+          
+          <div className="mt-auto">
+            <div className="flex flex-wrap gap-2 mb-4">
+              {project.tech.map(tech => (
+                <span 
+                  key={tech} 
+                  className="inline-block text-xs font-medium bg-secondary/70 backdrop-blur-sm px-3 py-1 rounded-full"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+
   return (
     <section id="projects" className="py-24 relative overflow-hidden">
       <div className="absolute top-20 right-0 text-[20rem] font-anton text-primary/5 -z-10 opacity-70 leading-none">
@@ -101,7 +153,76 @@ const Projects = () => {
           </div>
           
           <div className="space-y-24">
-            {categories.map((category, categoryIndex) => (
+            <div className="space-y-10">
+              <motion.h3 
+                className="inline-block text-3xl font-anton uppercase relative"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                <span className="relative after:absolute after:w-full after:h-0.5 after:bg-primary after:bottom-0 after:left-0">
+                  {categories[0].name}
+                </span>
+              </motion.h3>
+              
+              <div className="grid grid-cols-1 gap-12">
+                {categories[0].projects.map((project, projectIndex) => (
+                  <motion.div
+                    key={project.title}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: projectIndex * 0.1 }}
+                    className="w-full"
+                  >
+                    <Card className="overflow-hidden border-0 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+                      <CardContent className="p-0">
+                        <div className="flex flex-col lg:flex-row">
+                          <div className={`lg:w-1/3 ${project.color} p-8 flex items-center justify-center`}>
+                            <div className="text-white">
+                              <project.icon size={80} className="mx-auto mb-4" />
+                              <h3 className="text-2xl font-bold text-center">{project.title}</h3>
+                            </div>
+                          </div>
+                          <div className="lg:w-2/3 p-8">
+                            <div className="flex justify-between items-start mb-4">
+                              <div>
+                                <h3 className="text-3xl font-bold mb-4">{project.title}</h3>
+                                <p className="text-xl text-muted-foreground mb-6">{project.description}</p>
+                              </div>
+                              {project.link && (
+                                <a 
+                                  href={project.link} 
+                                  target="_blank" 
+                                  rel="noopener noreferrer"
+                                  className="text-primary hover:text-primary/80 transition-colors rounded-full bg-primary/10 p-2 flex items-center justify-center"
+                                  aria-label={`Visit ${project.title} website`}
+                                >
+                                  <ExternalLink size={24} />
+                                </a>
+                              )}
+                            </div>
+                            <div className="flex flex-wrap gap-3 mt-6">
+                              {project.tech.map(tech => (
+                                <span 
+                                  key={tech} 
+                                  className="inline-block text-sm font-medium bg-secondary px-4 py-2 rounded-full"
+                                >
+                                  {tech}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+            
+            {categories.slice(1).map((category, categoryIndex) => (
               <div key={category.name} className="space-y-10">
                 <motion.h3 
                   className="inline-block text-3xl font-anton uppercase relative"
@@ -116,57 +237,9 @@ const Projects = () => {
                 </motion.h3>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {category.projects.map((project, projectIndex) => (
-                    <motion.div
-                      key={project.title}
-                      className="group"
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: projectIndex * 0.1 }}
-                    >
-                      <div className="relative p-px overflow-hidden rounded-lg bg-gradient-to-br from-primary/30 via-primary/20 to-transparent">
-                        <div className="bg-background p-6 h-full flex flex-col rounded-lg backdrop-blur-sm">
-                          <div className="mb-4 flex items-start justify-between">
-                            <div className="flex items-center gap-3">
-                              <div className={`w-10 h-10 ${project.color} rounded-full flex items-center justify-center`}>
-                                <project.icon size={20} className="text-white" />
-                              </div>
-                              <h4 className="text-xl font-bold">{project.title}</h4>
-                            </div>
-                            {project.link && (
-                              <a 
-                                href={project.link} 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="text-muted-foreground hover:text-primary transition-colors"
-                                aria-label={`Visit ${project.title} website`}
-                              >
-                                <ExternalLink size={18} />
-                              </a>
-                            )}
-                          </div>
-                          
-                          <p className="text-muted-foreground mb-6 flex-grow">
-                            {project.description}
-                          </p>
-                          
-                          <div className="mt-auto">
-                            <div className="flex flex-wrap gap-2 mb-4">
-                              {project.tech.map(tech => (
-                                <span 
-                                  key={tech} 
-                                  className="inline-block text-xs font-medium bg-secondary/70 backdrop-blur-sm px-3 py-1 rounded-full"
-                                >
-                                  {tech}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
+                  {category.projects.map((project, projectIndex) => 
+                    renderRegularProject(project, projectIndex)
+                  )}
                 </div>
               </div>
             ))}
