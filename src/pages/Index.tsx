@@ -20,7 +20,14 @@ const Index = () => {
   
   useEffect(() => {
     // Update document title
-    document.title = "Ctrl+Alt+Mayank | Your development keyboard shortcut";
+    document.title = "Mayank Pagar | Frontend Developer";
+    
+    // Apply dark mode class immediately
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
     
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -38,7 +45,7 @@ const Index = () => {
         }
       });
     });
-  }, []);
+  }, [isDarkMode]);
   
   return (
     <div className={`bg-background relative ${isDarkMode ? 'dark' : ''}`}>

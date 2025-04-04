@@ -1,3 +1,4 @@
+
 import { Heart, Terminal } from "lucide-react";
 
 const Footer = () => {
@@ -16,9 +17,6 @@ const Footer = () => {
             </div>
             <p className="text-muted-foreground mb-2 max-w-md">
               Software engineer specializing in building exceptional digital experiences with a focus on responsive design and clean code.
-            </p>
-            <p className="text-primary/80 italic font-medium mb-4">
-              "Your development keyboard shortcut"
             </p>
           </div>
           
@@ -101,7 +99,7 @@ const Footer = () => {
         
         <div className="mt-12 pt-8 border-t border-border text-center text-muted-foreground">
           <p className="flex items-center justify-center gap-1">
-            © {new Date().getFullYear()} Mayank. Made with 
+            © {new Date().getFullYear()} Mayank Pagar. Made with 
             <Heart size={16} className="text-primary" /> in Nashik, India
           </p>
         </div>

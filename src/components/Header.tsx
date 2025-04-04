@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Github, Linkedin, Twitter, Mail, Menu, X, FileText, Terminal, Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -90,7 +91,7 @@ const Header = () => {
             </button>
             
             <a 
-              href="/mayank-pagar-resume.pdf" 
+              href="https://drive.google.com/file/d/1ysG2hAJbTCnYUpigg4PbjsVD2kMnyqot/view?usp=drive_link" 
               target="_blank"
               rel="noopener noreferrer"
               className="px-4 py-2 bg-primary/10 text-primary border border-primary/30 rounded-full flex items-center gap-2 hover:bg-primary/20 transition-colors"
@@ -191,7 +192,7 @@ const Header = () => {
             <div className="space-y-8">
               <div className="flex justify-center">
                 <a 
-                  href="/mayank-pagar-resume.pdf" 
+                  href="https://drive.google.com/file/d/1ysG2hAJbTCnYUpigg4PbjsVD2kMnyqot/view?usp=drive_link" 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-6 py-3 bg-primary/10 text-primary border border-primary/30 rounded-full flex items-center gap-2 hover:bg-primary/20 transition-colors"
@@ -216,7 +217,7 @@ const Header = () => {
                 ))}
               </div>
               <p className="text-center text-sm text-muted-foreground">
-                &copy; {new Date().getFullYear()} Ctrl+Alt+Mayank | All rights reserved
+                &copy; {new Date().getFullYear()} Mayank Pagar | All rights reserved
               </p>
             </div>
           </div>

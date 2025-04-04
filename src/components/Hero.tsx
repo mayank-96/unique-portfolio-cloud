@@ -1,3 +1,4 @@
+
 import { Code } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
@@ -49,22 +50,11 @@ const Hero = () => {
       <div className="container mx-auto px-4 md:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-7 space-y-6">
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-4 font-mono text-sm uppercase tracking-wider animate-fade-in">
-              <span className="bg-primary/10 px-3 py-1 rounded-full text-primary">Portfolio</span>
-              <span className="text-muted-foreground">Software Engineer</span>
-            </div>
-            
-            <div className="relative">
-              <div className="absolute -top-10 -left-4 text-[180px] font-anton text-primary/10 animate-fade-in delay-300">
-                &lt;/&gt;
-              </div>
-              
-              <h1 className="text-6xl md:text-8xl font-anton uppercase tracking-tight leading-none relative z-10">
-                <span className="block animate-slide-left">Front</span>
-                <span className="block animate-slide-right">End</span>
-                <span className="block text-primary animate-slide-left delay-200">Developer</span>
-              </h1>
-            </div>
+            <h1 className="text-6xl md:text-8xl font-anton uppercase tracking-tight leading-none relative z-10">
+              <span className="block animate-slide-left">Front</span>
+              <span className="block animate-slide-right">End</span>
+              <span className="block text-primary animate-slide-left delay-200">Developer</span>
+            </h1>
             
             <p className="text-lg text-muted-foreground max-w-2xl mt-8 animate-fade-in delay-400">
               I'm a dedicated software engineer with experience in building applications for web and mobile platforms. 
@@ -125,12 +115,6 @@ const Hero = () => {
                   </div>
                   <div>
                     ],
-                  </div>
-                  <div>
-                    <span className="text-orange-600">website</span>: <span className="text-green-600">'ctrlaltmayank.com'</span>,
-                  </div>
-                  <div>
-                    <span className="text-orange-600">tagline</span>: <span className="text-green-600">'Your development keyboard shortcut'</span>
                   </div>
                 </div>
                 

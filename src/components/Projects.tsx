@@ -32,6 +32,27 @@ const Projects = () => {
     }
   ];
 
+  const professionalProjects = [
+    {
+      title: "Velt Collaboration SDK",
+      description: "Real-time collaboration toolkit for web applications",
+      tech: ["TypeScript", "React", "WebSockets"],
+      link: "https://velt.dev"
+    },
+    {
+      title: "GlueStack UI",
+      description: "Universal component library for React and React Native",
+      tech: ["React", "React Native", "Storybook"],
+      link: "https://gluestack.io"
+    },
+    {
+      title: "NativeBase",
+      description: "Accessible component library for React Native",
+      tech: ["React Native", "TypeScript"],
+      link: "https://nativebase.io"
+    }
+  ];
+
   const renderProject = (project, projectIndex) => (
     <motion.div
       key={project.title}
@@ -45,9 +66,11 @@ const Projects = () => {
         <div className="bg-background p-6 h-full flex flex-col rounded-lg backdrop-blur-sm">
           <div className="mb-4 flex items-start justify-between">
             <div className="flex items-center gap-3">
-              <div className={`w-10 h-10 ${project.color} rounded-full flex items-center justify-center`}>
-                <project.icon size={20} className="text-white" />
-              </div>
+              {project.icon && (
+                <div className={`w-10 h-10 ${project.color} rounded-full flex items-center justify-center`}>
+                  <project.icon size={20} className="text-white" />
+                </div>
+              )}
               <h4 className="text-xl font-bold">{project.title}</h4>
             </div>
             {project.link && (
@@ -94,7 +117,7 @@ const Projects = () => {
               Works
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl">
-              A selection of my personal projects across various domains.
+              A selection of my personal and professional projects across various domains.
             </p>
           </div>
           
@@ -116,6 +139,57 @@ const Projects = () => {
                 {personalProjects.map((project, projectIndex) => 
                   renderProject(project, projectIndex)
                 )}
+              </div>
+            </div>
+
+            <div className="space-y-10 mt-16">
+              <motion.h3 
+                className="inline-block text-3xl font-anton uppercase relative"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                <span className="relative after:absolute after:w-full after:h-0.5 after:bg-primary after:bottom-0 after:left-0">
+                  Professional Work
+                </span>
+              </motion.h3>
+              
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
+                {professionalProjects.map((project, index) => (
+                  <motion.div
+                    key={project.title}
+                    className="group"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                  >
+                    <a 
+                      href={project.link} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="block h-full"
+                    >
+                      <div className="relative p-[1px] overflow-hidden rounded-md bg-gradient-to-br from-primary/30 via-primary/20 to-transparent h-full">
+                        <div className="bg-background/80 p-4 rounded-md h-full backdrop-blur-sm hover:bg-background/90 transition-all">
+                          <h4 className="text-lg font-bold mb-1 flex items-center justify-between">
+                            {project.title}
+                            <ExternalLink size={14} className="opacity-60 group-hover:opacity-100 transition-opacity" />
+                          </h4>
+                          <p className="text-sm text-muted-foreground mb-3">{project.description}</p>
+                          <div className="flex flex-wrap gap-1.5">
+                            {project.tech.map(tech => (
+                              <Badge key={tech} variant="outline" className="text-xs py-0">
+                                {tech}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </motion.div>
+                ))}
               </div>
             </div>
           </div>
