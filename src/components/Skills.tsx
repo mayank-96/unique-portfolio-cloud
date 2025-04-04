@@ -89,7 +89,7 @@ const Skills = () => {
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.3, delay: 0.2 + (index * 0.05) }}
-                      >
+                      > 
                         {skill}
                       </motion.span>
                     ))}
