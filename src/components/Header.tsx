@@ -106,7 +106,7 @@ const Header = () => {
             </motion.button>
             
             <motion.a 
-              href="https://drive.google.com/file/d/1ysG2hAJbTCnYUpigg4PbjsVD2kMnyqot/view?usp=drive_link" 
+              href="https://drive.google.com/file/d/1kd6prOH4zqCzRvaJ17mlOz_VH6COTj8K/view?usp=sharing" 
               target="_blank"
               rel="noopener noreferrer"
               className="px-4 py-2 bg-primary/10 text-primary border border-primary/30 rounded-lg flex items-center gap-2 hover:bg-primary/20 transition-all duration-300 group"

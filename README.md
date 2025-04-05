@@ -1,22 +1,16 @@
-# Welcome to your Lovable project
+# Modern Portfolio Website
 
-## Project info
+## Project Overview
 
-**URL**: https://lovable.dev/projects/6f29f76f-953a-4fed-8668-02b924171e3b
+A modern, interactive portfolio website built with React and TypeScript, featuring animations, responsive design, and a sleek UI.
 
 ## How can I edit this code?
 
 There are several ways of editing your application.
 
-**Use Lovable**
+**Edit Locally**
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/6f29f76f-953a-4fed-8668-02b924171e3b) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+If you want to work locally using your own IDE, you can clone this repo and push changes.
 
 The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
@@ -50,20 +44,44 @@ npm run dev
 - Click on "New codespace" to launch a new Codespace environment.
 - Edit files directly within the Codespace and commit and push your changes once you're done.
 
-## What technologies are used for this project?
+## Technologies Used
 
-This project is built with .
+This portfolio website is built with modern web technologies:
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- Vite - for fast development and building
+- TypeScript - for type safety
+- React - for UI components
+- Framer Motion - for smooth animations
+- shadcn-ui - for UI components
+- Tailwind CSS - for styling
+- Radix UI - for accessible components
 
-## How can I deploy this project?
+## Deployment
 
-Simply open [Lovable](https://lovable.dev/projects/6f29f76f-953a-4fed-8668-02b924171e3b) and click on Share -> Publish.
+You can deploy this project to any static hosting service:
 
-## I want to use a custom domain - is that possible?
+- Vercel
+- Netlify
+- GitHub Pages
+- AWS Amplify
+- Firebase Hosting
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+## Using a Custom Domain
+
+To use a custom domain, you'll need to:
+
+1. Register your domain with a domain registrar (like Namecheap, GoDaddy, etc.)
+2. Configure your deployment platform to use your custom domain
+3. Update your DNS settings according to your hosting provider's instructions
+
+## Features
+
+- Responsive design that works on all device sizes
+- Dark/light mode toggle
+- Interactive UI elements and animations
+- Project showcase section
+- Experience timeline
+- Skills display
+- Contact form
+- Blog section
+- Achievements section
