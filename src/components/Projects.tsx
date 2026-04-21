@@ -1,250 +1,204 @@
-import { ExternalLink, Github, Chrome, Code, Database, Library, ShoppingBag, Music, Film } from "lucide-react";
-import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { sectionColors } from "@/theme/colors";
-import { SectionBackground } from "@/components/ui/SectionBackground";
-import { SectionTitle } from "@/components/ui/SectionTitle";
-import { GlassCard } from "@/components/ui/GlassCard";
+import { useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+import { SectionKicker } from "@/components/ui/SectionKicker";
+import { FadeInUp } from "@/components/ui/ScrollReveal";
 
-const Projects = () => {
-  const projectsColor = sectionColors.projects;
+type Project = {
+  title: string;
+  year: string;
+  tag: string;
+  tech: string[];
+  link?: string;
+  image: string;
+};
 
-  const personalProjects = [
-    {
-      title: "Mariela Cushions",
-      description: "Simple static website for showcasing premium handcrafted cushions, built with HTML, CSS, and JavaScript",
-      tech: ["HTML", "CSS", "JavaScript"],
-      icon: ShoppingBag,
-      color: "bg-blue-600",
-      link: "https://mariela-cushions.vercel.app/"
-    },
-    {
-      title: "Wave Music Player",
-      description: "Static React music player application with streaming and playlist creation features",
-      tech: ["React", "CSS", "Web Audio API"],
-      icon: Music,
-      color: "bg-purple-600",
-      link: "https://wave-music-player-psi.vercel.app/"
-    },
-    {
-      title: "WhatToWatch",
-      description: "React application for finding movies and TV shows based on user search queries",
-      tech: ["React", "TMDb API", "CSS"],
-      icon: Film,
-      color: "bg-red-500",
-      link: "https://whattowatch.app"
-    }
-  ];
+const personal: Project[] = [
+  {
+    title: "Mariela Cushions",
+    year: "2024",
+    tag: "Static · E-commerce",
+    tech: ["HTML", "CSS", "JavaScript"],
+    link: "https://mariela-cushions.vercel.app/",
+    image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1600&auto=format&fit=crop",
+  },
+  {
+    title: "Wave",
+    year: "2023",
+    tag: "Music player",
+    tech: ["React", "Web Audio", "CSS"],
+    link: "https://wave-music-player-psi.vercel.app/",
+    image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1600&auto=format&fit=crop",
+  },
+  {
+    title: "WhatToWatch",
+    year: "2022",
+    tag: "Media · Search",
+    tech: ["React", "TMDb API", "CSS"],
+    link: "https://whattowatch.app",
+    image: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=1600&auto=format&fit=crop",
+  },
+];
 
-  const professionalProjects = [
-    {
-      title: "Velt Collaboration SDK",
-      description: "Real-time collaboration toolkit for web applications",
-      tech: ["Angular", "TypeScript", "React"],
-      link: "https://velt.dev"
-    },
-    {
-      title: "GlueStack UI",
-      description: "Universal component library for React and React Native",
-      tech: ["React", "React Native", "Storybook"],
-      link: "https://gluestack.io"
-    },
-    {
-      title: "NativeBase",
-      description: "Accessible component library for React Native",
-      tech: ["React Native", "TypeScript"],
-      link: "https://nativebase.io"
-    }
-  ];
+const professional: Project[] = [
+  {
+    title: "Velt Collaboration SDK",
+    year: "2023 — now",
+    tag: "Realtime SDK",
+    tech: ["Angular", "TypeScript", "React"],
+    link: "https://velt.dev",
+    image: "/projects/velt.png",
+  },
+  {
+    title: "GlueStack UI",
+    year: "2022 — 2023",
+    tag: "Component library",
+    tech: ["React", "React Native", "Storybook"],
+    link: "https://gluestack.io",
+    image: "/projects/gluestack.png",
+  },
+  {
+    title: "NativeBase",
+    year: "2021 — 2022",
+    tag: "RN component library",
+    tech: ["React Native", "TypeScript"],
+    link: "https://nativebase.io",
+    image: "/projects/nativebase.png",
+  },
+];
 
-  const renderProject = (project, projectIndex) => (
-    <motion.div
-      key={project.title}
-      className="group h-full"
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: projectIndex * 0.1 }}
-      whileHover={{ y: -8, transition: { duration: 0.3 } }}
-    >
-      <GlassCard color={projectsColor} className="p-0 h-full">
-        <div className="p-7 flex flex-col h-full">
-          <div className="mb-5 flex items-start justify-between relative z-10">
-            <div className="flex items-center gap-3">
-              {project.icon && (
-                <div className="w-11 h-11 rounded-xl flex items-center justify-center shadow-lg transform group-hover:rotate-3 transition-transform duration-300" 
-                  style={{ backgroundColor: `${projectsColor}20` }}>
-                  <project.icon size={22} style={{ color: projectsColor }} />
-                </div>
-              )}
-              <h4 className="text-xl font-bold tracking-tight">{project.title}</h4>
-            </div>
-            {project.link && (
-              <a 
-                href={project.link} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:scale-110 transform transition-all duration-300"
-                style={{ color: projectsColor }}
-                aria-label={`Visit ${project.title} website`}
-              >
-                <ExternalLink size={18} />
-              </a>
-            )}
-          </div>
-          
-          <p className="text-muted-foreground mb-6 flex-grow relative z-10">
-            {project.description}
-          </p>
-          
-          <div className="mt-auto relative z-10">
-            <div className="flex flex-wrap gap-2 mb-4">
-              {project.tech.map(tech => (
-                <Badge 
-                  key={tech} 
-                  variant="secondary"
-                  className="hover:bg-opacity-20 transition-colors duration-300"
-                  style={{ backgroundColor: `${projectsColor}10`, color: projectsColor }}
-                >
-                  {tech}
-                </Badge>
-              ))}
-            </div>
-          </div>
-        </div>
-      </GlassCard>
-    </motion.div>
-  );
+const ProjectList = ({ items }: { items: Project[] }) => {
+  const [hovered, setHovered] = useState<number | null>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const [mouse, setMouse] = useState({ x: 0, y: 0 });
 
   return (
-    <section id="projects" className="py-24 relative overflow-hidden">
-      <SectionBackground color={projectsColor} />
-      
-      <div className="container mx-auto px-4 md:px-8 relative z-10">
-        <div className="max-w-7xl mx-auto">
-          <motion.div 
-            className="mb-20"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+    <div
+      ref={wrapRef}
+      className="relative"
+      onMouseMove={(e) => {
+        const r = wrapRef.current?.getBoundingClientRect();
+        if (!r) return;
+        setMouse({ x: e.clientX - r.left, y: e.clientY - r.top });
+      }}
+    >
+      <ul className="border-t border-ed">
+        {items.map((p, i) => (
+          <li
+            key={p.title}
+            className="border-b border-ed"
+            onMouseEnter={() => setHovered(i)}
+            onMouseLeave={() => setHovered(null)}
           >
-            <SectionTitle 
-              label="Portfolio"
-              title="My Work"
-              color={projectsColor}
-              description="A selection of my personal and professional projects across various domains."
-            />
-          </motion.div>
-          
-          <div className="space-y-28">            
-            <div className="space-y-12">
-              <motion.h3 
-                className="inline-block text-3xl font-anton uppercase relative"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-              >
-                <span className="relative after:absolute after:w-full after:h-1 after:-bottom-1 after:left-0 after:rounded-full" style={{ color: projectsColor }}>
-                  <span className="relative">
-                    Personal Projects
-                    <span className="absolute -bottom-1 left-0 w-full h-1 rounded-full" style={{ background: `linear-gradient(to right, ${projectsColor}, ${projectsColor}30)` }}></span>
-                  </span>
-                </span>
-              </motion.h3>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {personalProjects.map((project, projectIndex) => 
-                  renderProject(project, projectIndex)
-                )}
-              </div>
-            </div>
-
-            <div className="space-y-12 mt-16">
-              <motion.h3 
-                className="inline-block text-3xl font-anton uppercase relative"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-              >
-                <span className="relative" style={{ color: projectsColor }}>
-                  Professional Work
-                  <span className="absolute -bottom-1 left-0 w-full h-1 rounded-full" style={{ background: `linear-gradient(to right, ${projectsColor}, ${projectsColor}30)` }}></span>
-                </span>
-              </motion.h3>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {professionalProjects.map((project, index) => (
-                  <motion.div
-                    key={project.title}
-                    className="group"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                    whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                  >
-                    <a 
-                      href={project.link} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="block h-full"
-                    >
-                      <GlassCard color={projectsColor} className="p-5 h-full">
-                        <h4 className="text-lg font-bold mb-2 flex items-center justify-between">
-                          {project.title}
-                          <ExternalLink size={15} className="opacity-60 group-hover:opacity-100 transition-opacity" style={{ color: projectsColor }} />
-                        </h4>
-                        <p className="text-sm text-muted-foreground mb-4">{project.description}</p>
-                        <div className="flex flex-wrap gap-1.5">
-                          {project.tech.map(tech => (
-                            <Badge 
-                              key={tech} 
-                              variant="outline" 
-                              className="text-xs py-0 bg-opacity-5"
-                              style={{ 
-                                borderColor: `${projectsColor}20`, 
-                                backgroundColor: `${projectsColor}05`, 
-                                color: `${projectsColor}` 
-                              }}
-                            >
-                              {tech}
-                            </Badge>
-                          ))}
-                        </div>
-                      </GlassCard>
-                    </a>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </div>
-          
-          <motion.div 
-            className="mt-20 flex justify-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <a 
-              href="https://github.com/mayank-96" 
+            <a
+              href={p.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 text-foreground/90 hover:text-foreground transition-colors px-6 py-3 rounded-full border hover:border-opacity-50"
-              style={{ 
-                borderColor: `${projectsColor}30`, 
-                backgroundColor: "transparent"
-              }}
+              className="project-row group grid grid-cols-12 items-baseline gap-4 py-7 md:py-9"
+              data-cursor
+              data-cursor-label="View"
             >
-              <Github size={18} className="group-hover:animate-pulse" style={{ color: projectsColor }} />
-              <span>View more on GitHub</span>
-              <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
+              <span className="col-span-1 font-mono text-[11px] uppercase tracking-[0.22em] text-dim-ed">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span className="project-row-title col-span-6 md:col-span-5 font-serif-display text-[clamp(1.75rem,3.6vw,3rem)] leading-none tracking-tight transition-colors text-[hsl(var(--text))]/60">
+                {p.title}
+              </span>
+              <span className="project-row-dim hidden md:block md:col-span-3 font-mono text-[11px] uppercase tracking-[0.22em] text-dim-ed">
+                {p.tag}
+              </span>
+              <span className="col-span-3 md:col-span-2 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-ed text-right md:text-left">
+                {p.year}
+              </span>
+              <span className="col-span-2 md:col-span-1 flex items-center justify-end text-muted-ed transition-transform group-hover:-translate-y-1 group-hover:translate-x-1">
+                <ArrowUpRight size={20} />
+              </span>
             </a>
+          </li>
+        ))}
+      </ul>
+
+      {/* Hover preview image (desktop) */}
+      <AnimatePresence>
+        {hovered !== null && (
+          <motion.div
+            key={hovered}
+            className="pointer-events-none fixed z-40 hidden md:block overflow-hidden rounded-sm bg-[hsl(var(--surface))] border border-ed"
+            style={{
+              left: mouse.x + (wrapRef.current?.getBoundingClientRect().left ?? 0) + 40,
+              top: mouse.y + (wrapRef.current?.getBoundingClientRect().top ?? 0) - 130,
+              width: 440,
+              height: 260,
+            }}
+            initial={{ opacity: 0, scale: 0.94, y: 12 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.94, y: 12 }}
+            transition={{ duration: 0.35, ease: [0.2, 0.7, 0.2, 1] }}
+          >
+            <img
+              src={items[hovered].image}
+              alt=""
+              className="h-full w-full object-contain"
+              loading="lazy"
+            />
+            <div className="absolute inset-x-0 bottom-0 flex items-center justify-between p-3 bg-gradient-to-t from-black/80 to-transparent">
+              <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-[hsl(var(--text))]">
+                {items[hovered].tech.join(" · ")}
+              </span>
+            </div>
           </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+const Projects = () => {
+  return (
+    <section id="work" className="relative py-32 md:py-48">
+      <div className="mx-auto max-w-[1600px] px-6 md:px-10">
+        <div className="grid grid-cols-12 gap-4 mb-16">
+          <div className="col-span-12 md:col-span-8">
+            <SectionKicker index="01" label="Selected Work" />
+            <h2 className="mt-6 font-serif-display text-[clamp(2.5rem,6vw,5.5rem)] leading-[0.95] tracking-tight">
+              A decade of <em className="italic">small</em> interfaces and <em className="italic">large</em> systems.
+            </h2>
+          </div>
+          <div className="col-span-12 md:col-span-4 md:pt-4 text-[hsl(var(--text))]/70 text-pretty">
+            From side projects that taught me the fundamentals, to SDKs and component libraries
+            shipping to teams around the world. Hover a row to preview — click through for more.
+          </div>
+        </div>
+
+        <FadeInUp>
+          <div className="mb-20">
+            <div className="mb-6 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-ed">
+              <span className="text-accent-ed">★</span> Professional
+            </div>
+            <ProjectList items={professional} />
+          </div>
+        </FadeInUp>
+
+        {/* <FadeInUp delay={0.05}>
+          <div>
+            <div className="mb-6 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-ed">
+              <span className="text-accent-ed">◆</span> Personal
+            </div>
+            <ProjectList items={personal} />
+          </div>
+        </FadeInUp> */}
+
+        <div className="mt-16 flex justify-center">
+          <a
+            href="https://github.com/mayank-96"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-reveal font-mono text-[11px] uppercase tracking-[0.22em] text-muted-ed"
+            data-cursor
+            data-cursor-label="GitHub"
+          >
+            More on GitHub ↗
+          </a>
         </div>
       </div>
     </section>

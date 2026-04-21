@@ -1,134 +1,134 @@
-import { motion } from "framer-motion";
-import { CodeIcon, Heart, Cpu, Coffee, Globe, BookOpen, Lightbulb, User } from "lucide-react";
-import { sectionColors } from "@/theme/colors";
-import { SectionBackground } from "@/components/ui/SectionBackground";
-import { SectionTitle } from "@/components/ui/SectionTitle";
-import { containerVariants, itemVariants } from "@/theme/animations";
-import { GlassCard } from "@/components/ui/GlassCard";
+import { useEffect, useState } from "react";
+import { SectionKicker } from "@/components/ui/SectionKicker";
+import { WordReveal, FadeInUp } from "@/components/ui/ScrollReveal";
+
+const traits = [
+  { k: "Craft", v: "Pixel-perfect, interaction-first." },
+  { k: "Scope", v: "From primitives to products." },
+  { k: "Stack", v: "React · TypeScript · Design Systems." },
+  { k: "Bias", v: "Ship, measure, refine." },
+];
+
+const formatCount = (n: number): string => {
+  if (n >= 1000) {
+    const k = n / 1000;
+    return (k >= 10 ? Math.round(k) : Math.round(k * 10) / 10) + "k";
+  }
+  return String(n);
+};
+
+const fetchStars = async (repo: string, fallback: number): Promise<number> => {
+  try {
+    const res = await fetch(`https://api.github.com/repos/${repo}`);
+    if (!res.ok) throw new Error(String(res.status));
+    const data = await res.json();
+    return typeof data.stargazers_count === "number" ? data.stargazers_count : fallback;
+  } catch {
+    return fallback;
+  }
+};
+
+const fetchWeeklyDownloads = async (pkg: string, fallback: number): Promise<number> => {
+  try {
+    const res = await fetch(`https://api.npmjs.org/downloads/point/last-week/${pkg}`);
+    if (!res.ok) throw new Error(String(res.status));
+    const data = await res.json();
+    return typeof data.downloads === "number" ? data.downloads : fallback;
+  } catch {
+    return fallback;
+  }
+};
 
 const About = () => {
-  const aboutColor = sectionColors.about;
+  const [stats, setStats] = useState({
+    gluestackStars: 5000,
+    gluestackDownloads: 29000,
+    nativebaseStars: 20000,
+    nativebaseDownloads: 41000,
+  });
+
+  useEffect(() => {
+    let cancelled = false;
+    Promise.all([
+      fetchStars("gluestack/gluestack-ui", 5000),
+      fetchWeeklyDownloads("@gluestack-ui/themed", 29000),
+      fetchStars("GeekyAnts/NativeBase", 20000),
+      fetchWeeklyDownloads("native-base", 41000),
+    ]).then(([gluestackStars, gluestackDownloads, nativebaseStars, nativebaseDownloads]) => {
+      if (cancelled) return;
+      setStats({ gluestackStars, gluestackDownloads, nativebaseStars, nativebaseDownloads });
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return (
-    <section id="about" className="py-32 relative overflow-hidden">
-      <SectionBackground color={aboutColor} />
-      
-      <div className="container mx-auto px-4 md:px-8 relative z-10">
-        <motion.div
-          className="max-w-7xl mx-auto"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <SectionTitle 
-            label="About Me"
-            title="Passionate About Development"
-            description="My journey and philosophy as a software engineer"
-            color={aboutColor}
-          />
-          
-          <motion.div 
-            className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            <motion.div className="lg:col-span-5 lg:col-start-1" variants={itemVariants}>
-              <GlassCard 
-                color={aboutColor}
-                className="space-y-6 mb-8"
-              >
-                <motion.div className="flex items-start space-x-3" variants={itemVariants}>
-                  <Lightbulb className="text-primary mt-1 flex-shrink-0" size={20} style={{ color: aboutColor }} />
-                  <p className="text-muted-foreground">
-                    My passion for software lies with dreaming up ideas and making them come true with elegant pixel-perfect interfaces. I take great care in the experience, architecture, and code quality of the things I build.
-                  </p>
-                </motion.div>
-                <motion.div className="flex items-start space-x-3" variants={itemVariants}>
-                  <Globe className="text-primary mt-1 flex-shrink-0" size={20} style={{ color: aboutColor }} />
-                  <p className="text-muted-foreground">
-                    With expertise across front-end and back-end development, I bring a holistic perspective to creating software solutions that not only meet functional requirements but also deliver exceptional user experiences.
-                  </p>
-                </motion.div>
-                <motion.div className="flex items-start space-x-3" variants={itemVariants}>
-                  <User className="text-primary mt-1 flex-shrink-0" size={20} style={{ color: aboutColor }} />
-                  <p className="text-muted-foreground">
-                    I enjoy collaborating with teams to solve complex problems and am always eager to learn new technologies and methodologies to enhance my skill set.
-                  </p>
-                </motion.div>
-              </GlassCard>
+    <section id="about" className="relative py-32 md:py-48">
+      <div className="mx-auto max-w-[1600px] px-6 md:px-10">
+        <div className="grid grid-cols-12 gap-6 md:gap-10">
+          <div className="col-span-12 md:col-span-4 lg:col-span-3">
+            <SectionKicker index="02" label="About" />
+            <div className="mt-16 hidden md:block space-y-8">
+              {traits.map((t) => (
+                <div key={t.k} className="border-t border-ed pt-4">
+                  <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-dim-ed">
+                    {t.k}
+                  </div>
+                  <div className="mt-1 font-serif-display text-xl italic text-[hsl(var(--text))]/85">
+                    {t.v}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
 
-              <motion.div 
-                className="flex flex-wrap gap-4"
-                variants={itemVariants}
-              >
-                <a 
-                  href="#contact" 
-                  className="px-6 py-3 rounded-lg transition-all duration-300 hover:shadow-lg"
-                  style={{ 
-                    backgroundColor: aboutColor,
-                    color: "white"
-                  }}
-                >
-                  Get in Touch
-                </a>
-                <a 
-                  href="/resume.pdf" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3 border rounded-lg transition-all duration-300 hover:shadow-md"
-                  style={{ 
-                    borderColor: aboutColor,
-                    color: aboutColor
-                  }}
-                >
-                  Resume
-                </a>
-              </motion.div>
-            </motion.div>
-            
-            <motion.div 
-              className="lg:col-span-6 lg:col-start-7"
-              variants={itemVariants}
-            >
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {[
-                  { icon: <CodeIcon size={24} />, title: "Clean Code", desc: "I write clean, maintainable code with a focus on performance and scalability." },
-                  { icon: <Heart size={24} />, title: "Pixel Perfect", desc: "I'm passionate about creating pixel-perfect, responsive interfaces that users love." },
-                  { icon: <Cpu size={24} />, title: "Problem Solver", desc: "I enjoy tackling complex problems and finding efficient, elegant solutions." },
-                  { icon: <BookOpen size={24} />, title: "Continuous Learner", desc: "I'm always learning and exploring new technologies and approaches." },
-                  { icon: <Coffee size={24} />, title: "Team Player", desc: "I thrive in collaborative environments and enjoy working with diverse teams." },
-                  { icon: <Lightbulb size={24} />, title: "Fast Delivery", desc: "I focus on delivering high-quality solutions efficiently and on time." }
-                ].map((item, index) => (
-                  <motion.div 
-                    key={index}
-                    variants={itemVariants}
-                    custom={index}
-                    transition={{ delay: index * 0.1 }}
+          <div className="col-span-12 md:col-span-8 lg:col-span-8 lg:col-start-5">
+            <WordReveal
+              as="p"
+              className="font-serif-display text-[clamp(1.9rem,3.4vw,3.25rem)] leading-[1.15] tracking-tight text-balance"
+              text="I build software with care for the small moments — the hover that feels right, the empty state that still has voice, the transition that respects your attention. Most recently at Velt, I've been architecting a framework-agnostic SDK that lets teams drop Figma-like collaboration into any app in minutes, not weeks."
+            />
+
+            <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-10">
+              <FadeInUp>
+                <p className="text-[hsl(var(--text))]/75 text-pretty">
+                  Earlier, I co-created{" "}
+                  <a
+                    href="https://gluestack.io/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="link-reveal text-accent-ed"
+                    data-cursor
+                    data-cursor-label="View"
                   >
-                    <GlassCard color={aboutColor} className="h-full">
-                      <div 
-                        className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 transition-colors"
-                        style={{ 
-                          backgroundColor: `${aboutColor}15`,
-                          color: aboutColor
-                        }}
-                      >
-                        <div className="text-primary" style={{ color: aboutColor }}>
-                          {item.icon}
-                        </div>
-                      </div>
-                      <h4 className="text-xl font-bold mb-2">{item.title}</h4>
-                      <p className="text-muted-foreground">{item.desc}</p>
-                    </GlassCard>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          </motion.div>
-        </motion.div>
+                    GlueStack
+                  </a>
+                  , a universal component library that grew to {formatCount(stats.gluestackStars)} stars and {formatCount(stats.gluestackDownloads)} weekly
+                  npm downloads, and shipped core features into{" "}
+                  <a
+                    href="https://nativebase.io/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="link-reveal text-accent-ed"
+                    data-cursor
+                    data-cursor-label="View"
+                  >
+                    NativeBase
+                  </a>{" "}
+                  ({formatCount(stats.nativebaseStars)} stars, {formatCount(stats.nativebaseDownloads)} weekly downloads).
+                </p>
+              </FadeInUp>
+              <FadeInUp delay={0.1}>
+                <p className="text-[hsl(var(--text))]/75 text-pretty">
+                  I think in systems but live in the details — accessibility,
+                  theming primitives, motion. Outside work: sketching, video edits,
+                  and long-form tutorials for developers starting out.
+                </p>
+              </FadeInUp>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

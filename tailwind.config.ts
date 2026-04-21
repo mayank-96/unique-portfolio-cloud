@@ -19,10 +19,11 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				'mono': ['Space Mono', 'monospace'],
+				'mono': ['JetBrains Mono', 'Space Mono', 'ui-monospace', 'monospace'],
+				'serif': ['Instrument Serif', 'Times New Roman', 'serif'],
 				'sora': ['Sora', 'sans-serif'],
 				'anton': ['Anton', 'sans-serif'],
-				'sans': ['DM Sans', 'sans-serif'],
+				'sans': ['DM Sans', 'system-ui', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',

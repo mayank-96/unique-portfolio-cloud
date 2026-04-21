@@ -1,307 +1,91 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { Send, Mail, MapPin, Phone, Loader2, Github, Linkedin, Twitter } from "lucide-react";
-import { sectionColors } from "@/theme/colors";
-import { SectionBackground } from "@/components/ui/SectionBackground";
-import { SectionTitle } from "@/components/ui/SectionTitle";
-import { GlassCard } from "@/components/ui/GlassCard";
+import { useEffect, useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+import { SectionKicker } from "@/components/ui/SectionKicker";
+
+const channels = [
+  { label: "Email", value: "pagarmayank07@gmail.com", href: "mailto:pagarmayank07@gmail.com" },
+  { label: "GitHub", value: "@mayank-96", href: "https://github.com/mayank-96" },
+  { label: "LinkedIn", value: "/in/mayank-pagar", href: "https://linkedin.com/in/mayank-pagar" },
+  { label: "Twitter / X", value: "@mayankp09_", href: "https://x.com/mayankp09_" },
+  { label: "Phone", value: "+91 7620 415 699", href: "tel:+917620415699" },
+];
 
 const Contact = () => {
-  const contactColor = sectionColors.contact;
-  const [formState, setFormState] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const x = useTransform(scrollYProgress, [0, 1], [-40, 40]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormState({
-      ...formState,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      setFormState({ name: "", email: "", message: "" });
-      
-      // Reset success message after 5 seconds
-      setTimeout(() => {
-        setIsSubmitted(false);
-      }, 5000);
-    }, 1500);
-  };
+  // live clock in user locale, just for flavor
+  const clockRef = useRef<HTMLSpanElement>(null);
+  useEffect(() => {
+    const update = () => {
+      if (!clockRef.current) return;
+      clockRef.current.textContent = new Intl.DateTimeFormat("en-IN", {
+        timeZone: "Asia/Kolkata",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      }).format(new Date());
+    };
+    update();
+    const id = setInterval(update, 30_000);
+    return () => clearInterval(id);
+  }, []);
 
   return (
-    <section id="contact" className="py-32 relative overflow-hidden">
-      <SectionBackground color={contactColor} />
-      
-      <div className="container mx-auto px-4 relative z-10">
-        <motion.div 
-          className="max-w-3xl mx-auto text-center mb-20"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <SectionTitle
-            label="Contact"
-            title="Get In Touch"
-            color={contactColor}
-            description="Have a project in mind or want to discuss potential opportunities? I'd love to hear from you. Feel free to reach out and I'll get back to you as soon as possible."
-            align="center"
-          />
+    <section id="contact" ref={ref} className="relative py-36 md:py-56 overflow-hidden">
+      <div className="mx-auto max-w-[1600px] px-6 md:px-10">
+        <SectionKicker index="09" label="Contact" />
+
+        <motion.div style={{ x }} className="mt-10">
+          <h2 className="font-serif-display text-[clamp(3rem,13vw,12rem)] leading-[0.9] tracking-[-0.02em]">
+            <span className="block">Let's <em className="italic text-accent-ed">build</em></span>
+            <span className="block">something <em className="italic">strange</em></span>
+            <span className="block">and <em className="italic">well-made</em>.</span>
+          </h2>
         </motion.div>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 max-w-6xl mx-auto">
-          <motion.div 
-            className="lg:col-span-5 space-y-8"
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <GlassCard color={contactColor} className="p-8">
-              <h3 className="text-2xl font-bold mb-6 flex items-center">
-                <span className="relative mr-2">
-                  Contact Info
-                  <span className="absolute -bottom-1 left-0 w-full h-1 rounded-full" style={{ background: `linear-gradient(to right, ${contactColor}, ${contactColor}30)` }}></span>
-                </span>
-              </h3>
-              
-              <div className="space-y-6 mt-8">
-                <motion.div 
-                  className="flex items-start gap-5 group"
-                  whileHover={{ x: 5 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                >
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-opacity-20 transition-colors duration-300" 
-                    style={{ backgroundColor: `${contactColor}10` }}>
-                    <Mail style={{ color: contactColor }} size={22} />
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-lg">Email</h4>
-                    <a 
-                      href="mailto:pagarmayank07@gmail.com" 
-                      className="text-muted-foreground hover:text-primary transition-colors duration-300"
-                    >
-                      pagarmayank07@gmail.com
-                    </a>
-                  </div>
-                </motion.div>
-                
-                <motion.div 
-                  className="flex items-start gap-5 group"
-                  whileHover={{ x: 5 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                >
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-opacity-20 transition-colors duration-300" 
-                    style={{ backgroundColor: `${contactColor}10` }}>
-                    <Phone style={{ color: contactColor }} size={22} />
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-lg">Phone</h4>
-                    <a 
-                      href="tel:+917620415699" 
-                      className="text-muted-foreground hover:text-primary transition-colors duration-300"
-                    >
-                      +91 7620415699
-                    </a>
-                  </div>
-                </motion.div>
-                
-                <motion.div 
-                  className="flex items-start gap-5 group"
-                  whileHover={{ x: 5 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                >
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-opacity-20 transition-colors duration-300" 
-                    style={{ backgroundColor: `${contactColor}10` }}>
-                    <MapPin style={{ color: contactColor }} size={22} />
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-lg">Location</h4>
-                    <p className="text-muted-foreground">Nashik, Maharashtra, India</p>
-                  </div>
-                </motion.div>
-              </div>
-            </GlassCard>
-            
-            <GlassCard color={contactColor} className="p-8">
-              <h4 className="text-xl font-bold mb-6 flex items-center">
-                <span className="relative mr-2">
-                  Let's Connect
-                  <span className="absolute -bottom-1 left-0 w-full h-1 rounded-full" style={{ background: `linear-gradient(to right, ${contactColor}, ${contactColor}30)` }}></span>
-                </span>
-              </h4>
-              <div className="flex gap-4">
-                <motion.a 
-                  href="https://github.com/mayank-96" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 bg-background/50 border rounded-xl flex items-center justify-center hover:bg-opacity-10 hover:border-opacity-30 transition-all duration-300 hover:scale-110"
-                  style={{ borderColor: `${contactColor}30` }}
-                  aria-label="GitHub"
-                  whileHover={{ y: -5 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                >
-                  <Github style={{ color: contactColor }} size={22} />
-                </motion.a>
-                
-                <motion.a 
-                  href="https://linkedin.com/in/mayank-pagar" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 bg-background/50 border rounded-xl flex items-center justify-center hover:bg-opacity-10 hover:border-opacity-30 transition-all duration-300 hover:scale-110"
-                  style={{ borderColor: `${contactColor}30` }}
-                  aria-label="LinkedIn"
-                  whileHover={{ y: -5 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                >
-                  <Linkedin style={{ color: contactColor }} size={22} />
-                </motion.a>
-                
-                <motion.a 
-                  href="https://twitter.com/mayankp09_" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 bg-background/50 border rounded-xl flex items-center justify-center hover:bg-opacity-10 hover:border-opacity-30 transition-all duration-300 hover:scale-110"
-                  style={{ borderColor: `${contactColor}30` }}
-                  aria-label="Twitter"
-                  whileHover={{ y: -5 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                >
-                  <Twitter style={{ color: contactColor }} size={22} />
-                </motion.a>
-              </div>
-            </GlassCard>
-          </motion.div>
-          
-          <motion.div 
-            className="lg:col-span-7"
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <GlassCard color={contactColor} className="p-8 shadow-xl relative overflow-hidden">
-              {/* Decorative elements */}
-              <div className="absolute top-0 right-0 w-40 h-40 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl" style={{ backgroundColor: `${contactColor}05` }}></div>
-              <div className="absolute bottom-0 left-0 w-40 h-40 rounded-full translate-y-1/2 -translate-x-1/2 blur-2xl" style={{ backgroundColor: `${contactColor}05` }}></div>
-              
-              <h3 className="text-2xl font-bold mb-6 flex items-center">
-                <span className="relative mr-2">
-                  Send a Message
-                  <span className="absolute -bottom-1 left-0 w-full h-1 rounded-full" style={{ background: `linear-gradient(to right, ${contactColor}, ${contactColor}30)` }}></span>
-                </span>
-              </h3>
-              
-              {isSubmitted ? (
-                <motion.div 
-                  className="bg-green-500/10 text-green-600 p-6 rounded-xl mb-6 flex items-center gap-4"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center flex-shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-medium mb-1">Message Sent!</h4>
-                    <p>Thank you for reaching out. I'll get back to you as soon as possible.</p>
-                  </div>
-                </motion.div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
-                  <div>
-                    <label htmlFor="name" className="block mb-2 font-medium text-foreground/90">
-                      Name
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formState.name}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-5 py-3.5 border rounded-xl bg-background/60 focus:outline-none focus:ring-2 focus:border-opacity-100 transition-all duration-300"
-                      style={{ 
-                        borderColor: `${contactColor}20`
-                      }}
-                      placeholder="Your name"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="email" className="block mb-2 font-medium text-foreground/90">
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formState.email}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-5 py-3.5 border border-border/80 rounded-xl bg-background/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-300"
-                      placeholder="Your email address"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="message" className="block mb-2 font-medium text-foreground/90">
-                      Message
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      value={formState.message}
-                      onChange={handleChange}
-                      required
-                      rows={5}
-                      className="w-full px-5 py-3.5 border border-border/80 rounded-xl bg-background/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary resize-none transition-all duration-300"
-                      placeholder="Your message"
-                    ></textarea>
-                  </div>
-                  
-                  <motion.button
-                    type="submit"
-                    className="px-6 py-3.5 text-white rounded-xl font-medium inline-flex items-center gap-2 relative overflow-hidden group hover:shadow-lg transition-all duration-300"
-                    style={{ 
-                      backgroundColor: contactColor,
-                      boxShadow: isSubmitting ? `0 10px 15px -3px ${contactColor}20` : 'none'
-                    }}
-                    disabled={isSubmitting}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+
+        <div className="mt-20 grid grid-cols-12 gap-6">
+          <div className="col-span-12 md:col-span-7">
+            <a
+              href="mailto:pagarmayank07@gmail.com"
+              className="group inline-flex items-center gap-4 font-serif-display text-[clamp(1.75rem,3vw,2.5rem)] italic link-reveal"
+              data-cursor
+              data-cursor-label="Mail"
+            >
+              pagarmayank07@gmail.com
+              <ArrowUpRight size={22} className="transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
+            </a>
+            <p className="mt-6 max-w-xl text-[hsl(var(--text))]/70 text-pretty">
+              I'm selectively taking on collaborations — SDK engineering, design-systems
+              work, component libraries, realtime / collab products. If any of that sounds
+              like your thing, say hi.
+            </p>
+          </div>
+
+          <div className="col-span-12 md:col-span-5">
+            <ul className="border-t border-ed">
+              {channels.map((c) => (
+                <li key={c.label} className="border-b border-ed">
+                  <a
+                    href={c.href}
+                    target={c.href.startsWith("http") ? "_blank" : undefined}
+                    rel="noopener noreferrer"
+                    className="flex items-baseline justify-between gap-4 py-4 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-ed hover:text-[hsl(var(--text))] transition-colors"
+                    data-cursor
                   >
-                    <span className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                    {isSubmitting ? (
-                      <>
-                        <Loader2 size={20} className="animate-spin" />
-                        <span>Sending...</span>
-                      </>
-                    ) : (
-                      <>
-                        <Send size={20} className="group-hover:translate-x-1 transition-transform duration-300" />
-                        <span>Send Message</span>
-                      </>
-                    )}
-                  </motion.button>
-                </form>
-              )}
-            </GlassCard>
-          </motion.div>
+                    <span className="text-dim-ed">{c.label}</span>
+                    <span>{c.value} ↗</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-6 flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.22em] text-dim-ed">
+              <span>Local time · Nashik, IN</span>
+              <span className="text-[hsl(var(--text))]" ref={clockRef}>—</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>

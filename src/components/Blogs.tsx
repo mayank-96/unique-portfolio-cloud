@@ -1,114 +1,135 @@
-import { ExternalLink, BookOpen } from "lucide-react";
-import { motion } from "framer-motion";
-import { sectionColors } from "@/theme/colors";
-import { SectionBackground } from "@/components/ui/SectionBackground";
-import { SectionTitle } from "@/components/ui/SectionTitle";
-import { GlassCard } from "@/components/ui/GlassCard";
+import { ArrowUpRight } from "lucide-react";
+import { SectionKicker } from "@/components/ui/SectionKicker";
+import { FadeInUp } from "@/components/ui/ScrollReveal";
 
 const blogs = [
   {
-    title: "NativeBase X Formik",
+    title: "NativeBase × Formik",
     url: "https://nativebase.hashnode.dev/nativebase-x-formik",
-    publisher: "NativeBase Hashnode",
-    description: "A comprehensive guide on integrating NativeBase with Formik for form management in React Native applications.",
-    banner: "https://images.unsplash.com/photo-1603468620905-8de7d86b781e?q=80&w=2676&auto=format&fit=crop"
+    publisher: "NativeBase · Hashnode",
+    year: "2022",
+    note: "A working guide to building composable forms in React Native with NativeBase + Formik.",
   },
   {
-    title: "How Automated Web Scraping can Ease Your Pain",
+    title: "How Automated Web Scraping Can Ease Your Pain",
     url: "https://medium.com/python-in-plain-english/how-automated-web-scraping-can-ease-your-pain-8839f436bb13",
-    publisher: "Medium - Python in Plain English",
-    description: "An in-depth tutorial on implementing automated web scraping solutions using Python.",
-    banner: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2670&auto=format&fit=crop"
-  }
+    publisher: "Medium · Python in Plain English",
+    year: "2021",
+    note: "A hands-on tutorial on writing resilient scheduled web-scraping pipelines in Python.",
+  },
 ];
 
-const Blogs = () => {
-  const blogsColor = sectionColors.blogs;
-  
-  return (
-    <section id="blogs" className="py-24 relative overflow-hidden">
-      <SectionBackground color={blogsColor} />
-      
-      <div className="container mx-auto px-4 md:px-8 relative z-10">
-        <div className="max-w-7xl mx-auto">
-          <motion.div 
-            className="mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <SectionTitle
-              label="Knowledge Sharing"
-              title="Blogs"
-              description="I share my technical knowledge and experiences through articles to help others in the developer community."
-              color={blogsColor}
-            />
-          </motion.div>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            {blogs.map((blog, index) => (
-              <motion.div 
-                key={blog.title}
-                className={`lg:col-span-6 group relative ${index === 0 ? "lg:col-start-1" : "lg:col-start-7"}`}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-                whileHover={{ y: -8, transition: { duration: 0.3 } }}
-              >
-                <GlassCard color={blogsColor} className="h-full p-0 overflow-hidden">
-                  <div className="w-full h-56 overflow-hidden relative">
-                    <img 
-                      src={blog.banner} 
-                      alt={blog.title} 
-                      className="w-full h-full object-cover transition-transform group-hover:scale-105 duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent opacity-60"></div>
-                  </div>
-                  
-                  <div className="p-8 flex-1 flex flex-col">
-                    <div className="mb-6 flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0" 
-                        style={{ backgroundColor: `${blogsColor}10` }}>
-                        <BookOpen style={{ color: blogsColor }} size={24} />
-                      </div>
-                      
-                      <div>
-                        <h3 className="text-2xl font-bold mb-2 group-hover:text-foreground transition-colors">
-                          {blog.title}
-                        </h3>
-                        <p className="text-sm font-mono mb-0" style={{ color: blogsColor }}>
-                          {blog.publisher}
-                        </p>
-                      </div>
-                    </div>
-                    
-                    <div className="h-[1px] w-full mb-6" style={{ background: `linear-gradient(to right, ${blogsColor}20, ${blogsColor}10, transparent)` }}></div>
-                    
-                    <p className="text-muted-foreground mb-6 flex-grow line-clamp-3">
-                      {blog.description}
-                    </p>
-                    
-                    <a 
-                      href={blog.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center font-mono text-sm uppercase tracking-wide hover:underline mt-auto"
-                      style={{ color: blogsColor }}
-                    >
-                      Read Article
-                      <ExternalLink size={14} className="ml-2" />
-                    </a>
-                  </div>
-                </GlassCard>
-              </motion.div>
-            ))}
-          </div>
+const talks = [
+  {
+    title: "Headless CMS as a Low-Code Tool",
+    event: "GeekyAnts · Low-code Hybrid Meetup",
+    url: "https://www.youtube.com/watch?v=7-UUZBn8e7c",
+    year: "2022",
+  },
+  {
+    title: "Panel · Low-code / No-code",
+    event: "Featuring Sanket Sahu",
+    url: "https://www.youtube.com/watch?v=cFcjH4WbRS0",
+    year: "2022",
+  },
+];
+
+const Row = ({
+  num,
+  title,
+  meta,
+  right,
+  note,
+  url,
+}: {
+  num: string;
+  title: string;
+  meta: string;
+  right: string;
+  note?: string;
+  url: string;
+}) => (
+  <a
+    href={url}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="group grid grid-cols-12 gap-4 py-8 md:py-10 items-baseline"
+    data-cursor
+    data-cursor-label="Read"
+  >
+    <span className="col-span-1 font-mono text-[11px] uppercase tracking-[0.22em] text-dim-ed">
+      {num}
+    </span>
+    <span className="col-span-11 md:col-span-6 font-serif-display text-[clamp(1.5rem,2.4vw,2.25rem)] leading-tight text-balance">
+      {title}
+      <span className="ml-3 font-serif-display italic text-[hsl(var(--text))]/55 text-lg">— {meta}</span>
+    </span>
+    <span className="hidden md:block md:col-span-3 text-[hsl(var(--text))]/60 text-pretty text-sm">
+      {note}
+    </span>
+    <span className="col-span-12 md:col-span-2 flex items-center justify-start md:justify-end gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-accent-ed">
+      {right}
+      <ArrowUpRight size={16} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+    </span>
+  </a>
+);
+
+const Blogs = () => (
+  <section id="writing" className="relative py-32 md:py-48">
+    <div className="mx-auto max-w-[1600px] px-6 md:px-10">
+      <div className="grid grid-cols-12 gap-4 mb-16">
+        <div className="col-span-12 md:col-span-8">
+          <SectionKicker index="07" label="Writing & Talks" />
+          <h2 className="mt-6 font-serif-display text-[clamp(2.5rem,6vw,5rem)] leading-[0.95] tracking-tight">
+            Thinking <em className="italic">out loud</em>.
+          </h2>
         </div>
       </div>
-    </section>
-  );
-};
+
+      <div className="mb-16">
+        <div className="mb-6 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-ed">
+          <span className="text-accent-ed">※</span> Essays
+        </div>
+        <ul className="border-t border-ed">
+          {blogs.map((b, i) => (
+            <li key={b.title} className="border-b border-ed">
+              <FadeInUp delay={i * 0.05}>
+                <Row
+                  num={String(i + 1).padStart(2, "0")}
+                  title={b.title}
+                  meta={b.publisher}
+                  right={b.year}
+                  note={b.note}
+                  url={b.url}
+                />
+              </FadeInUp>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <div className="mb-6 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-ed">
+          <span className="text-accent-ed">▶</span> Talks
+        </div>
+        <ul className="border-t border-ed">
+          {talks.map((t, i) => (
+            <li key={t.title} className="border-b border-ed">
+              <FadeInUp delay={i * 0.05}>
+                <Row
+                  num={String(i + 1).padStart(2, "0")}
+                  title={t.title}
+                  meta={t.event}
+                  right={t.year}
+                  url={t.url}
+                />
+              </FadeInUp>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+);
 
 export default Blogs;
