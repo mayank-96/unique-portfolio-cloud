@@ -196,13 +196,7 @@ const Experience = () => {
   return (
     <section id="experience" className="py-32 relative overflow-hidden">
       <SectionBackground color={experienceColor} />
-      
-      <div className="absolute left-4 md:left-20 top-40 bottom-40 w-0.5 hidden md:block" 
-        style={{
-          background: `linear-gradient(to bottom, ${experienceColor}05, ${experienceColor}40, ${experienceColor}05)`
-        }}
-      ></div>
-      
+
       <div className="container mx-auto px-4 md:px-8 relative z-10">
         <motion.div 
           className="max-w-7xl mx-auto"
@@ -261,13 +255,19 @@ const Experience = () => {
           
           <div className="grid grid-cols-1 lg:grid-cols-6 gap-8">
             {/* Timeline navigation */}
-            <motion.div 
-              className="lg:col-span-2 order-2 lg:order-1"
+            <motion.div
+              className="lg:col-span-2 order-2 lg:order-1 relative"
               variants={containerVariants}
               initial="hidden"
               animate="visible"
               key="timeline-nav"
             >
+              <div
+                className="absolute -left-4 top-0 bottom-0 w-0.5 hidden md:block pointer-events-none"
+                style={{
+                  background: `linear-gradient(to bottom, ${experienceColor}05, ${experienceColor}40, ${experienceColor}05)`
+                }}
+              ></div>
               <div className="sticky top-28 space-y-3">
                 {filteredExperiences.map((exp, index) => (
                   <motion.div
