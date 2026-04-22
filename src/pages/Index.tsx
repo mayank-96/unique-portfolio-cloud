@@ -20,7 +20,6 @@ const Index = () => {
     document.title = "Mayank Pagar — Software Engineer";
     document.documentElement.classList.add("dark");
 
-    // Smooth scroll for in-page anchors, with offset for the fixed header.
     const handler = (e: Event) => {
       const anchor = (e.target as HTMLElement)?.closest?.("a[href^='#']") as HTMLAnchorElement | null;
       if (!anchor) return;

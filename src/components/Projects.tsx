@@ -118,7 +118,6 @@ const ProjectList = ({ items }: { items: Project[] }) => {
         ))}
       </ul>
 
-      {/* Hover preview image (desktop) */}
       <AnimatePresence>
         {hovered !== null && (
           <motion.div

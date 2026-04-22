@@ -16,7 +16,6 @@ const Contact = () => {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const x = useTransform(scrollYProgress, [0, 1], [-40, 40]);
 
-  // live clock in user locale, just for flavor
   const clockRef = useRef<HTMLSpanElement>(null);
   useEffect(() => {
     const update = () => {

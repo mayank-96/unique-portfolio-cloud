@@ -21,7 +21,6 @@ const Hero = () => {
       ref={ref}
       className="relative flex min-h-[100svh] flex-col justify-between pt-36 pb-10 md:pt-44 md:pb-12 overflow-hidden"
     >
-      {/* Meta rail */}
       <div className="mx-auto w-full max-w-[1600px] px-6 md:px-10">
         <div className="grid grid-cols-12 gap-6 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-ed">
           <div className="col-span-6 md:col-span-3">
@@ -48,7 +47,6 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Headline */}
       <motion.div
         className="mx-auto w-full max-w-[1600px] px-6 md:px-10"
         style={{ y: titleY }}
@@ -69,7 +67,6 @@ const Hero = () => {
         </h1>
       </motion.div>
 
-      {/* Subline & scroll cue */}
       <motion.div
         className="mx-auto w-full max-w-[1600px] px-6 md:px-10"
         style={{ opacity: subOpacity }}
@@ -105,7 +102,6 @@ const Hero = () => {
         </div>
       </motion.div>
 
-      {/* Tech ticker */}
       <div className="mt-20 border-y border-ed py-6">
         <Marquee speed={55}>
           {TICKER.map((t, i) => (

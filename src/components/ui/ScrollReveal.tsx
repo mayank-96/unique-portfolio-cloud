@@ -7,10 +7,6 @@ interface WordRevealProps {
   as?: "p" | "h1" | "h2" | "h3";
 }
 
-/**
- * Scroll-driven word-by-word reveal. Each word fades from dim → full text color
- * as the container travels through the viewport.
- */
 export const WordReveal = ({ text, className = "", as: Tag = "p" }: WordRevealProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({

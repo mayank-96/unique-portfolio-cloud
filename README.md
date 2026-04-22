@@ -1,87 +1,63 @@
-# Modern Portfolio Website
+# mayank-portfolio
 
-## Project Overview
+My personal site — `mayank.dev`. An editorial-style, single-page portfolio
+with a magnetic cursor, scroll-linked reveals and live GitHub / npm stats.
 
-A modern, interactive portfolio website built with React and TypeScript, featuring animations, responsive design, and a sleek UI.
+## Stack
 
-## How can I edit this code?
+- Vite + React 18 + TypeScript
+- Tailwind CSS with a small set of custom utilities (see `src/index.css`)
+- Framer Motion for scroll-linked and interaction animations
+- Radix primitives (via shadcn/ui) for dialogs and a few composables
+- Vercel Analytics
 
-There are several ways of editing your application.
+## Running locally
 
-**Edit Locally**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+Requires Node 18+.
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+npm install
+npm run dev        # http://localhost:8080
+npm run build      # production build → dist/
+npm run preview    # serve the production build locally
+npm run lint
 ```
 
-**Edit a file directly in GitHub**
+## Structure
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```
+src/
+  components/          # one file per section (Hero, Projects, About, …)
+    ui/                # shared primitives — cursor, marquee, reveal, kicker
+  pages/Index.tsx      # top-level page, mounts the cursor + grain overlay
+  index.css            # design tokens + editorial helpers
+public/
+  projects/            # screenshots used in the hover-preview
+```
 
-**Use GitHub Codespaces**
+Section order and layout live in `src/pages/Index.tsx`. Each section is
+self-contained and owns its own container width / padding so they can be
+reordered freely.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Live data
 
-## Technologies Used
+The About paragraph pulls GitHub stars and npm weekly downloads for
+GlueStack and NativeBase on mount, with current values as fallbacks so the
+copy renders correctly even if a fetch fails:
 
-This portfolio website is built with modern web technologies:
+- `api.github.com/repos/gluestack/gluestack-ui`
+- `api.github.com/repos/GeekyAnts/NativeBase`
+- `api.npmjs.org/downloads/point/last-week/@gluestack-ui/themed`
+- `api.npmjs.org/downloads/point/last-week/native-base`
 
-- Vite - for fast development and building
-- TypeScript - for type safety
-- React - for UI components
-- Framer Motion - for smooth animations
-- shadcn-ui - for UI components
-- Tailwind CSS - for styling
-- Radix UI - for accessible components
+See `src/components/About.tsx`.
 
 ## Deployment
 
-You can deploy this project to any static hosting service:
+Deployed on Vercel from `main`. The build output is a static `dist/`
+folder — any static host (Netlify, Cloudflare Pages, GitHub Pages) works.
 
-- Vercel
-- Netlify
-- GitHub Pages
-- AWS Amplify
-- Firebase Hosting
+## License
 
-## Using a Custom Domain
-
-To use a custom domain, you'll need to:
-
-1. Register your domain with a domain registrar (like Namecheap, GoDaddy, etc.)
-2. Configure your deployment platform to use your custom domain
-3. Update your DNS settings according to your hosting provider's instructions
-
-## Features
-
-- Responsive design that works on all device sizes
-- Dark/light mode toggle
-- Interactive UI elements and animations
-- Project showcase section
-- Experience timeline
-- Skills display
-- Contact form
-- Blog section
-- Achievements section
+Personal project — code under MIT, content (copy, images, brand marks) is
+not licensed for reuse.
